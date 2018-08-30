@@ -11,5 +11,11 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+//= turbolinks got rid of this requirement because it breaks the materialize initilization
 //= require_tree .
+//= require jquery
+//= require jquery_ujs
+//= require materialize
+$(document).ready(function(){
+    $('.collapsible').collapsible();
+});

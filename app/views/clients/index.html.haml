@@ -1,14 +1,14 @@
 =render 'layouts/navbar'
-%table
-  %thead
-    %th Name
-    %th Address
-    %th Description
-    %th
-  %tbody
-    -@clients.each do |client|
-      %tr
-        %td=client
-        %td=client.address
-        %td=client.description
-        %td=link_to "View"
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+        .card-body
+          %ul.collection
+            -@clients.each do |client|
+              %li.collection-item.avatar
+                =image_tag client.photo_url, class: "circle"
+                %span.title=client
+                =link_to "View", client_path(client), class: "secondary-content btn waves-light waces-effect yellow darken-3"
+        .card-action

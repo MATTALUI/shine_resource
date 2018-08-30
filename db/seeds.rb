@@ -13,7 +13,7 @@ Client.create([
   {
     first_name: "Annie",
     last_initial: "G",
-    dob: 24.years.ago,
+    dob: 24.years.ago.to_s,
     addr1: "421 Cherry Street",
     addr2: nil,
     town: "Fort Collins",
@@ -25,12 +25,12 @@ Client.create([
     important_for_me: "Reminding me that it's not good to eat too many donuts.",
     additional_info: nil,
     shine_services: "She needs a lot of help when it comes to getting to places on time.",
-    photo_url: nil
+    photo_url: '/chickpic.jpg'
   },
   {
     first_name: "Benjamin",
     last_initial: "D",
-    dob: 69.years.ago,
+    dob: 69.years.ago.to_s,
     addr1: "PO Box 69",
     addr2: "69 Partee Court",
     town: "Wellington",
@@ -42,6 +42,6 @@ Client.create([
     important_for_me: nil,
     additional_info: nil,
     shine_services: nil,
-    photo_url: nil
+    photo_url: '/chickpic.jpg'
   }
   ]).each{|c| puts "Created Client: #{c}"}

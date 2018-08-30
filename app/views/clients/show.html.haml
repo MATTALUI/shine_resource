@@ -1,2 +1,39 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+=render 'layouts/navbar'
+.container
+  .row
+    .col-sm-12
+      .card.grey.lighten-3
+        .card-content
+          %span.card-title.center-text=@client
+          .card-body
+            %ul.collapsible{data: {collapsible: "expandible"}}
+              %li
+                .collapsible-header.active Description
+                .collapsible-body=@client.description
+              %li
+                .collapsible-header.active Address
+                .collapsible-body=formatted_address_haml(@client)
+              %li
+                .collapsible-header.active Birthdate
+                .collapsible-body
+                  =@client.formatted_dob('%b %-d %Y')
+                  =age_calc(@client.parsed_dob)
+              %li
+                .collapsible-header.active Services Needed
+                .collapsible-body=@client.services_needed
+              %li
+                .collapsible-header.active Ideal Providor
+                .collapsible-body=@client.ideal_providor
+              %li
+                .collapsible-header.active Important To Me
+                .collapsible-body=@client.important_to_me
+              %li
+                .collapsible-header.active Import For Me
+                .collapsible-body=@client.important_for_me
+              %li
+                .collapsible-header.active Shine Services
+                .collapsible-body=@client.shine_services
+              %li
+                .collapsible-header.active Additional Info
+                .collapsible-body=@client.additional_info
+          .card-action

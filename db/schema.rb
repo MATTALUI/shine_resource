@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180825195703) do
   create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_initial", limit: 1, null: false
-    t.date "encrypted_dob"
-    t.date "encrypted_dob_iv"
+    t.string "encrypted_dob"
+    t.string "encrypted_dob_iv"
     t.string "encrypted_addr1"
     t.string "encrypted_addr1_iv"
     t.string "encrypted_addr2"
@@ -60,9 +60,29 @@ ActiveRecord::Schema.define(version: 20180825195703) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "notes", force: :cascade do |t|
+  create_table "incedent_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "client_id"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "total_hours"
+    t.text "service_description"
+    t.integer "transportation_trips"
+    t.string "location"
+    t.string "interactions"
+    t.text "support_provided"
+    t.text "comments"
+    t.boolean "incedent_reports_filed"
+    t.bigint "incedent_report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_notes_on_client_id"
+    t.index ["incedent_report_id"], name: "index_notes_on_incedent_report_id"
   end
 
 end

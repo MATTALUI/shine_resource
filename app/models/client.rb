@@ -15,6 +15,14 @@ class Client < ApplicationRecord
     return [self.first_name, self.last_initial].compact.join(' ')
   end
 
+  def parsed_dob
+    return Date.parse(self.dob) rescue nil
+  end
+
+  def formatted_dob(format='%m/%d/%Y')
+    return self.parsed_dob.strftime(format)
+  end
+
   def address
     return[self.addr1, self.addr2,[self.town, self.state].compact.join(', ')].compact.join("\n")
   end

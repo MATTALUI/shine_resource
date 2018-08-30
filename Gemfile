@@ -35,6 +35,7 @@ gem 'attr_encrypted'
 gem 'haml'
 gem 'haml-rails'
 
+gem 'jquery-rails'
 gem 'materialize-sass'
 
 gem 'simple_form'
@@ -59,6 +60,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'brakeman'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,6 +1,8 @@
 class ClientsController < ApplicationController
   def index
-    @clients = Client.all
+    @search  = params[:search].presence
+    @clients = Client.all.order(first_name: :asc)
+    @clients = @clients.search(@search) if @search.present?
   end
 
   def show

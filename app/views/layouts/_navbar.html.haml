@@ -2,6 +2,9 @@
   .nav-wrapper
     =link_to "Shine", root_path, class: "brand-logo"
     %ul.right.hide-on-med-and-down
-      %li=link_to "About", ""
       -if current_user.present?
+        %li=link_to "Notes", nil
+        %li=link_to "Clients", root_path
         %li=link_to "Log Out", logout_path, method: :delete
+      -else
+        %li=link_to "About", nil
