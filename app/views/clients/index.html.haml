@@ -1,0 +1,14 @@
+=render 'layouts/navbar'
+%table
+  %thead
+    %th Name
+    %th Address
+    %th Description
+    %th
+  %tbody
+    -@clients.each do |client|
+      %tr
+        %td=client
+        %td=client.address
+        %td=client.description
+        %td=link_to "View"

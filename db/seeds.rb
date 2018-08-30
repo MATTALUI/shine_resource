@@ -1,7 +1,47 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Caretaker.destroy_all
+Caretaker.create([
+  {
+    first_name: "Matthew",
+    last_name:  "Hummer",
+    email:      "matt@example.com",
+    password:   "password",
+    master:     "true"
+  }]).each{|c| puts "Created Caretaker: #{c}"}
+
+Client.destroy_all
+Client.create([
+  {
+    first_name: "Annie",
+    last_initial: "G",
+    dob: 24.years.ago,
+    addr1: "421 Cherry Street",
+    addr2: nil,
+    town: "Fort Collins",
+    state: "CO",
+    description: "Annie is a genuine sweetheart.",
+    services_needed: "Hugs on the Daily.",
+    ideal_providor: "He has red hair and super huge miscles.",
+    important_to_me: "Someone who can provide plenty of donuts.",
+    important_for_me: "Reminding me that it's not good to eat too many donuts.",
+    additional_info: nil,
+    shine_services: "She needs a lot of help when it comes to getting to places on time.",
+    photo_url: nil
+  },
+  {
+    first_name: "Benjamin",
+    last_initial: "D",
+    dob: 69.years.ago,
+    addr1: "PO Box 69",
+    addr2: "69 Partee Court",
+    town: "Wellington",
+    state: "CO",
+    description: "Benjamin is a normal guy. He likes to be a normal guy.",
+    services_needed: "Help putting his pants on.",
+    ideal_providor: "Someone who is patient and not scared to see too much plumber's crack.",
+    important_to_me: nil,
+    important_for_me: nil,
+    additional_info: nil,
+    shine_services: nil,
+    photo_url: nil
+  }
+  ]).each{|c| puts "Created Client: #{c}"}

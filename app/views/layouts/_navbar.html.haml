@@ -1,0 +1,7 @@
+%nav.yellow.darken-3
+  .nav-wrapper
+    =link_to "Shine", root_path, class: "brand-logo"
+    %ul.right.hide-on-med-and-down
+      %li=link_to "About", ""
+      -if current_user.present?
+        %li=link_to "Log Out", logout_path, method: :delete
