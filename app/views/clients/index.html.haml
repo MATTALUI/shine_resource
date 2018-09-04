@@ -4,6 +4,15 @@
     .card.grey.lighten-3
       .card-content
         .card-title
+          .row
+            =form_tag root_path, url: root_path, method: :get, class: "col s6" do
+              .row
+                =text_field_tag "search", @search,  placeholder: "Search Clients", class: "col s10"
+                =button_tag name: nil, class: "btn-floating yellow darken-3", type: "submit" do
+                  =fa_icon('search')
+            .col.s1.offset-s5
+              =link_to new_client_path, class: "btn-floating yellow darken-3" do
+                =fa_icon('plus')
         .card-body
           %ul.collection
             -@clients.each do |client|

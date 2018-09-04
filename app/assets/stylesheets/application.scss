@@ -14,7 +14,15 @@
  *= require_self
  */
 
- @import 'materialize';
- .center-text{
-   text-align: center;
- }
+@import 'materialize';
+@import "font-awesome-sprockets";
+@import "font-awesome";
+textarea{
+  max-width: 100%;
+}
+.center-text{
+  text-align: center;
+}
+.btn-floating > i{
+  margin-top: .2em;
+}

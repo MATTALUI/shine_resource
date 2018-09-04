@@ -18,4 +18,6 @@
 //= require materialize
 $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('.datepicker').datepicker();
+    $('.datepicker').pickadate();
 });

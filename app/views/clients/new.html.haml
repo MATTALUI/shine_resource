@@ -1,2 +1,45 @@
-<h1>Clients#new</h1>
-<p>Find me in app/views/clients/new.html.erb</p>
+=render 'layouts/navbar'
+.container
+  .row
+    .col.s12
+      .card.grey.lighten-3
+        .card-content
+          %span.card-title.center-text New Client Info
+          =simple_form_for @client do |f|
+            .card-body
+              .row
+                .col.s6
+                  =f.input :first_name
+                  =f.input :last_initial
+                  =f.input :addr1
+                  =f.input :addr2
+                  =f.input :dob, class: "datepicker"
+                .col.s6
+                  -# .center-align
+                  .card.white
+                    .card-image
+                      =image_tag "/chickpic.jpg", id: "photo-preview", class: "circle", style: "width:100%;"
+                    .card-content.center-text
+                      %label.btn.yellow.darken-3#upload-photo-label{for: "upload-photo-input"} Upload Photo
+                      =file_field_tag :photo, id: "upload-photo-input", hidden: true
+              =f.input :description,      as: :text, input_html: {class: "white"}
+              =f.input :services_needed,  as: :text, input_html: {class: "white"}
+              =f.input :ideal_providor,   as: :text, input_html: {class: "white"}
+              =f.input :important_to_me,  as: :text, input_html: {class: "white"}
+              =f.input :important_for_me, as: :text, input_html: {class: "white"}
+              =f.input :additional_info,  as: :text, input_html: {class: "white"}
+              =f.input :shine_services,   as: :text, input_html: {class: "white"}
+            .card-action
+              =f.submit "Save", class: "btn yellow darken-3 right"
+
+:javascript
+  $('#upload-photo-input').on('change', function(event){
+    var file = $('#upload-photo-input')[0].files[0]
+    var name = file.name;
+    var reader = new FileReader;
+    reader.onload = function(event){
+      $('#photo-preview').attr('src', event.target.result);
+    }
+    reader.readAsDataURL(file);
+    $('#upload-photo-label').html(name);
+  });

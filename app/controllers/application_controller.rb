@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     user = Caretaker.find_by_email(params.dig(:login, :email))
                     &.authenticate(params.dig(:login, :password))
     if user.present?
+      reset_session
       session[:current_user] = user.id
       redirect_to root_path
     else

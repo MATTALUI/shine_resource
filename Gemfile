@@ -37,6 +37,7 @@ gem 'haml-rails'
 
 gem 'jquery-rails'
 gem 'materialize-sass'
+gem 'font-awesome-sass', '~> 5.3.1'
 
 gem 'simple_form'
 
