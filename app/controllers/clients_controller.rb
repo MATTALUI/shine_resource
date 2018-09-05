@@ -14,6 +14,8 @@ class ClientsController < ApplicationController
   end
 
   def create
+    @client = Client.new
+    raise
   end
 
   def edit
@@ -24,4 +26,8 @@ class ClientsController < ApplicationController
 
   def destroy
   end
+  private
+    def client_params
+      params.require(:client).permit(:first_name, :last_initial, :addr1, :addr2, :dob, :description, :services_needed, :ideal_providor, :important_to_me, :important_for_me, :additional_info, :shine_services, :town, :state)
+    end
 end

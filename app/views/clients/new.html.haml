@@ -5,7 +5,7 @@
       .card.grey.lighten-3
         .card-content
           %span.card-title.center-text New Client Info
-          =simple_form_for @client do |f|
+          =simple_form_for @client, action: clients_path, method: :post do |f|
             .card-body
               .row
                 .col.s6
@@ -13,9 +13,10 @@
                   =f.input :last_initial
                   =f.input :addr1
                   =f.input :addr2
+                  =f.input :town
+                  =f.input :state
                   =f.input :dob, class: "datepicker"
                 .col.s6
-                  -# .center-align
                   .card.white
                     .card-image
                       =image_tag "/chickpic.jpg", id: "photo-preview", class: "circle", style: "width:100%;"
