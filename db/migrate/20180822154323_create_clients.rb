@@ -5,8 +5,8 @@ class CreateClients < ActiveRecord::Migration[5.1]
 
       t.string  :last_initial, limit: 1, null: false
 
-      t.string    :encrypted_dob
-      t.string    :encrypted_dob_iv
+      t.string   :encrypted_dob
+      t.string   :encrypted_dob_iv
 
       t.string  :encrypted_addr1
       t.string  :encrypted_addr1_iv

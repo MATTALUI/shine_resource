@@ -11,6 +11,7 @@ class Client < ApplicationRecord
   attr_encrypted :shine_services,   key: ENV["encryption_key"]
   attr_encrypted :photo_url,        key: ENV["encryption_key"]
 
+  has_many :memos
 
   scope :search, ->(term){ where('lower(first_name) LIKE ?', "%#{term.downcase}%") }
 

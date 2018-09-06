@@ -7,6 +7,7 @@ Caretaker.create([
     password:   "password",
     master:     "true"
   }]).each{|c| puts "Created Caretaker: #{c}"}
+matt = Caretaker.first
 
 Client.destroy_all
 Client.create([
@@ -62,3 +63,13 @@ Client.create([
     photo_url: '/system/photos/chickpic.jpg'
   }
   ]).each{|c| puts "Created Client: #{c}"}
+client = Client.last
+
+Memo.create([
+  {client_id: client.id,
+  caretaker_id: matt.id,
+  body: "#{client} was okay today."},
+  client_id: client.id,
+  caretaker_id: matt.id,
+  body: "#{client} had some behavioral issues today."
+  ]).each{|m| puts "#{m.caretaker} made a note about #{m.client}"}
