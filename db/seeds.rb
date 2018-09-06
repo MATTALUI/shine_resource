@@ -25,7 +25,7 @@ Client.create([
     important_for_me: "Reminding me that it's not good to eat too many donuts.",
     additional_info: nil,
     shine_services: "She needs a lot of help when it comes to getting to places on time.",
-    photo_url: '/chickpic.jpg'
+    photo_url: '/system/photos/chickpic.jpg'
   },
   {
     first_name: "Benjamin",
@@ -42,7 +42,7 @@ Client.create([
     important_for_me: nil,
     additional_info: nil,
     shine_services: nil,
-    photo_url: '/chickpic.jpg'
+    photo_url: '/system/photos/chickpic.jpg'
   },
   {
     first_name: "Ardy",
@@ -59,6 +59,6 @@ Client.create([
     important_for_me: nil,
     additional_info: nil,
     shine_services: nil,
-    photo_url: '/chickpic.jpg'
+    photo_url: '/system/photos/chickpic.jpg'
   }
   ]).each{|c| puts "Created Client: #{c}"}

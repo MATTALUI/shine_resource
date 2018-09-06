@@ -5,31 +5,47 @@
       .card.grey.lighten-3
         .card-content
           %span.card-title.center-text New Client Info
-          =simple_form_for @client, action: clients_path, method: :post do |f|
+          =form_for @client, action: clients_path, method: :post do |f|
             .card-body
               .row
                 .col.s6
-                  =f.input :first_name
-                  =f.input :last_initial
-                  =f.input :addr1
-                  =f.input :addr2
-                  =f.input :town
-                  =f.input :state
-                  =f.input :dob, class: "datepicker"
+                  .row
+                    .col.s6
+                      %label First Name
+                      =f.text_field :first_name
+                    .col.s6
+                      %label Last Initial
+                      =f.text_field :last_initial
+                  %label Address
+                  =f.text_field :addr1
+                  =f.text_field :addr2
+                  %label Town
+                  =f.text_field :town
+                  %label State
+                  =f.text_field :state
+                  %label Date of Birth
+                  =f.text_field :dob, class: "datepicker"
                 .col.s6
                   .card.white
                     .card-image
-                      =image_tag "/chickpic.jpg", id: "photo-preview", class: "circle", style: "width:100%;"
+                      =image_tag DEFAULT_PHOTO, id: "photo-preview", class: "circle", style: "width:100%;"
                     .card-content.center-text
                       %label.btn.yellow.darken-3#upload-photo-label{for: "upload-photo-input"} Upload Photo
-                      =file_field_tag :photo, id: "upload-photo-input", hidden: true
-              =f.input :description,      as: :text, input_html: {class: "white"}
-              =f.input :services_needed,  as: :text, input_html: {class: "white"}
-              =f.input :ideal_providor,   as: :text, input_html: {class: "white"}
-              =f.input :important_to_me,  as: :text, input_html: {class: "white"}
-              =f.input :important_for_me, as: :text, input_html: {class: "white"}
-              =f.input :additional_info,  as: :text, input_html: {class: "white"}
-              =f.input :shine_services,   as: :text, input_html: {class: "white"}
+                      =f.file_field :photo, id: "upload-photo-input", hidden: true
+              %label Description
+              =f.text_area :description, class: "white"
+              %label Services Needed
+              =f.text_area :services_needed, class: "white"
+              %label Ideal Providor
+              =f.text_area :ideal_providor, class: "white"
+              %label Important to Me
+              =f.text_area :important_to_me, class: "white"
+              %label Important for Me
+              =f.text_area :important_for_me, class: "white"
+              %label Additional Info
+              =f.text_area :additional_info, class: "white"
+              %label Shine Services
+              =f.text_area :shine_services, class: "white"
             .card-action
               =f.submit "Save", class: "btn yellow darken-3 right"
 

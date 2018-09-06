@@ -11,6 +11,7 @@ class Client < ApplicationRecord
   attr_encrypted :shine_services,   key: ENV["encryption_key"]
   attr_encrypted :photo_url,        key: ENV["encryption_key"]
 
+
   scope :search, ->(term){ where('lower(first_name) LIKE ?', "%#{term.downcase}%") }
 
   def to_s
@@ -22,10 +23,20 @@ class Client < ApplicationRecord
   end
 
   def formatted_dob(format='%m/%d/%Y')
-    return self.parsed_dob.strftime(format)
+    return self.parsed_dob&.strftime(format)
   end
 
   def address
     return[self.addr1, self.addr2,[self.town, self.state].compact.join(', ')].compact.join("\n")
+  end
+
+  class << self
+    def oldest
+      return self.order(created_at: :asc).first
+    end
+
+    def most_recent
+      return self.order(created_at: :desc).first
+    end
   end
 end

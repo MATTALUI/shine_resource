@@ -40,6 +40,7 @@ gem 'materialize-sass'
 gem 'font-awesome-sass', '~> 5.3.1'
 
 gem 'simple_form'
+gem 'american_date'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

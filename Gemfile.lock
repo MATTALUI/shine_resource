@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    american_date (1.1.1)
     arel (8.0.0)
     attr_encrypted (3.1.0)
       encryptor (~> 3.0.0)
@@ -223,6 +224,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  american_date
   attr_encrypted
   bcrypt (~> 3.1.7)
   better_errors
