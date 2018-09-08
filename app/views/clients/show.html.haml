@@ -5,6 +5,7 @@
       .card.grey.lighten-3
         .card-content
           %span.card-title.center-text=@client
+          %button.btn-floating.yellow.darken-3.waves-effect{onclick:"$('.collapsible-header').click()"} Collapse
           .card-body
             %ul.collapsible{data: {collapsible: "expandible"}}
               %li
@@ -37,3 +38,12 @@
                 .collapsible-header.active Additional Info
                 .collapsible-body=@client.additional_info
           .card-action
+  .row
+    -@client.memos.includes(:caretaker).each do |memo|
+      .col.s10.offset-s1
+        .card.yellow.lighten-5
+          .card-content
+            %span.card-title= memo.caretaker
+            %p=memo.body
+          .card-action
+            =memo.created_at&.strftime('%l:%M%P %b %e')

@@ -11,9 +11,7 @@
                 =button_tag name: nil, class: "btn-floating yellow darken-3", type: "submit" do
                   =fa_icon('search')
             -if current_user.master
-              .col.s1.offset-s5
-                =link_to new_client_path, class: "btn-floating yellow darken-3" do
-                  =fa_icon('plus')
+              =link_to "New Client", new_client_path,  class: "btn yellow darken-3 col s3 offset-s3"
         .card-body
           %ul.collection
             -@clients.each do |client|

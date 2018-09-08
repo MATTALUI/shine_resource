@@ -19,6 +19,8 @@
 $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.datepicker').pickadate({
-      format: 'mm/dd/yyyy'
+      format: 'mm/dd/yyyy',
+      selectMonths: true,
+      selectYears: 150
     });
 });
