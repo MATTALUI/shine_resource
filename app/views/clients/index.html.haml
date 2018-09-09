@@ -13,6 +13,8 @@
             -if current_user.master
               =link_to "New Client", new_client_path,  class: "btn yellow darken-3 col s3 offset-s3"
         .card-body
+          -if @clients.length.zero?
+            %h5.center-text No Clients Found
           %ul.collection
             -@clients.each do |client|
               %li.collection-item.avatar
