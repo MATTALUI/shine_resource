@@ -1,0 +1,14 @@
+.row
+  %button.btn.waves-effect.yellow.darken-3.col.offset-s9.sm2.new-memo New Memo
+  .col.s10.offset-s1
+    .card.yellow.lighten-3.hide#memo-form
+      .card-content
+        .row
+          =simple_form_for :memo, url: memos_path, method: :post do |f|
+            =f.input :client_id, as: :hidden, input_html: {value: @client.id}
+            =f.input :body, label: false, as: :text, input_html: {class: "white"}
+            =f.submit "Add", class: "btn yellow darken-3 right"
+:javascript
+  $('.new-memo').on('click', function(event){
+    $('#memo-form').toggleClass('hide');
+  });

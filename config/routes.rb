@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'clients#index'
 
   get    'login',  controller: 'application', as: 'login'
@@ -8,4 +9,5 @@ Rails.application.routes.draw do
 
   resources :clients
   resources :notes
+  resources :memos, only: [:create]
 end

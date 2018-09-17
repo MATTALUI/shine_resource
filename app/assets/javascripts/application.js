@@ -18,6 +18,7 @@
 //= require materialize
 $(document).ready(function(){
     $('.collapsible').collapsible();
+    $('.sidenav-trigger').sideNav();
     $('.datepicker').pickadate({
       format: 'mm/dd/yyyy',
       selectMonths: true,

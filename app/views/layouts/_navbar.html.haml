@@ -1,6 +1,8 @@
 %nav.yellow.darken-3
   .nav-wrapper
     =link_to "Shine", root_path, class: "brand-logo"
+    =link_to "", class: "sidenav-trigger hide-on-med-and-up", data:{activates: "sideNav"} do
+      =fa_icon('bars')
     %ul.right.hide-on-med-and-down
       -if current_user.present?
         %li=link_to "Notes", nil
@@ -8,3 +10,8 @@
         %li=link_to "Log Out", logout_path, method: :delete
       -else
         %li=link_to "About", nil
+    %ul.side-nav#sideNav
+      -if current_user.present?
+        %li=link_to "Notes", nil
+        %li=link_to "Clients", root_path
+        %li=link_to "Log Out", logout_path, method: :delete
