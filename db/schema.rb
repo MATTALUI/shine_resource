@@ -10,12 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180906023739) do
+ActiveRecord::Schema.define(version: 20181118043253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "pgcrypto"
+
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.text "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_type", "associated_id"], name: "associated_index"
+    t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
+  end
 
   create_table "caretakers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name"
@@ -23,13 +45,16 @@ ActiveRecord::Schema.define(version: 20180906023739) do
     t.string "email"
     t.string "phone"
     t.string "password_digest"
+    t.string "organization_id"
     t.boolean "master", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_caretakers_on_email"
+    t.index ["organization_id"], name: "index_caretakers_on_organization_id"
   end
 
   create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "organization_id", null: false
     t.string "first_name", null: false
     t.string "last_initial", limit: 1, null: false
     t.string "encrypted_dob"
@@ -58,14 +83,17 @@ ActiveRecord::Schema.define(version: 20180906023739) do
     t.string "encrypted_photo_url_iv"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_clients_on_organization_id"
   end
 
   create_table "incedent_reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "note_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["note_id"], name: "index_incedent_reports_on_note_id"
   end
 
-  create_table "memos", force: :cascade do |t|
+  create_table "memos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "client_id", null: false
     t.string "caretaker_id", null: false
     t.text "encrypted_body"
@@ -76,24 +104,46 @@ ActiveRecord::Schema.define(version: 20180906023739) do
     t.index ["client_id"], name: "index_memos_on_client_id"
   end
 
-  create_table "notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "client_id"
-    t.date "date"
+  create_table "note_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "caretaker_id"
     t.time "start_time"
     t.time "end_time"
+    t.date "date"
     t.integer "total_hours"
+    t.boolean "billed_for"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["caretaker_id"], name: "index_note_groups_on_caretaker_id"
+  end
+
+  create_table "notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "client_id"
+    t.time "start_time"
+    t.time "end_time"
     t.text "service_description"
     t.integer "transportation_trips"
     t.string "location"
     t.string "interactions"
     t.text "support_provided"
     t.text "comments"
-    t.boolean "incedent_reports_filed"
-    t.bigint "incedent_report_id"
+    t.string "note_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_notes_on_client_id"
-    t.index ["incedent_report_id"], name: "index_notes_on_incedent_report_id"
+    t.index ["note_group_id"], name: "index_notes_on_note_group_id"
+  end
+
+  create_table "organization_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_organization_settings_on_organization_id"
+  end
+
+  create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -1,10 +1,14 @@
 class Client < ApplicationRecord
+  audited
+
+  belongs_to :organization
+
   attr_encrypted :addr1,            key: ENV["encryption_key"]
   attr_encrypted :addr2,            key: ENV["encryption_key"]
   attr_encrypted :dob,              key: ENV["encryption_key"]
   attr_encrypted :description,      key: ENV["encryption_key"]
   attr_encrypted :services_needed,  key: ENV["encryption_key"]
-  attr_encrypted :ideal_providor,   key: ENV["encryption_key"]
+  attr_encrypted :ideal_provider,   key: ENV["encryption_key"]
   attr_encrypted :important_to_me,  key: ENV["encryption_key"]
   attr_encrypted :important_for_me, key: ENV["encryption_key"]
   attr_encrypted :additional_info,  key: ENV["encryption_key"]
@@ -12,8 +16,10 @@ class Client < ApplicationRecord
   attr_encrypted :photo_url,        key: ENV["encryption_key"]
 
   has_many :memos
+  has_many :notes
 
-  scope :search, ->(term){ where('lower(first_name) LIKE ?', "%#{term.downcase}%") }
+  scope :with_org, ->(org_id) {where(organization_id: org_id)}
+  scope :search,   ->(term){ where('lower(first_name) LIKE ?', "%#{term.downcase}%") }
 
   def to_s
     return [self.first_name, self.last_initial].compact.join(' ')

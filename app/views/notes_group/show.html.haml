@@ -1,0 +1,29 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            %h5{style: "margin-bottom: 0;"}=@note_group.date.strftime('%A %B %e, %Y')
+            %span.sub-text
+              Report by
+              -if current_user.master
+                =link_to @note_group.caretaker, caretaker_path(@note_group.caretaker)
+              -else
+                =@note_group.caretaker
+        .card-body
+          %table.striped
+            %tr
+              %th Time
+              %td
+                =local_time(@note_group.start_time, "%l:%M%P")
+                ="-"
+                =local_time(@note_group.end_time, "%l:%M%P %Z")
+            %tr
+              %th Clients
+              %td
+                .collection
+                  -@notes.sort{|a,b| a.client.first_name <=> b.client.first_name}.each do |note|
+                    =link_to note.client, notes_group_note_path(notes_group_id: @note_group.id, id: note.id), class: "collection-item black-text"
+        .card-action

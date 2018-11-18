@@ -2,7 +2,7 @@ require 'rack/mime'
 class ClientsController < ApplicationController
   def index
     @search  = params[:search].presence
-    @clients = Client.all.order(first_name: :asc)
+    @clients = Client.with_org(current_user.organization_id).order(first_name: :asc)
     @clients = @clients.search(@search) if @search.present?
   end
 

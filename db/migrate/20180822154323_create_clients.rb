@@ -1,6 +1,9 @@
 class CreateClients < ActiveRecord::Migration[5.1]
   def change
     create_table :clients, id: :uuid do |t|
+      t.string :organization_id, null: false
+
+
       t.string  :first_name, null: false
 
       t.string  :last_initial, limit: 1, null: false
@@ -44,5 +47,6 @@ class CreateClients < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :clients, :organization_id
   end
 end

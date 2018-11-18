@@ -1,1 +1,1 @@
-DEFAULT_PHOTO = '/system/photos/chickpic.jpg'
+DEFAULT_PHOTO = '/system/photos/profpic.jpg'

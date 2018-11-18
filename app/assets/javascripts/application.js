@@ -16,6 +16,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize
+//= require local-time
 $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.sidenav-trigger').sideNav();

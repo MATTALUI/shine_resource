@@ -1,2 +1,18 @@
-%h1 Notes#index
-%p Find me in app/views/notes/index.html.haml
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            %h5 NOTES
+        .card-body
+          -if @note_groups.length.zero?
+            %h5.center-text No Note Groups available
+          %ul.collection
+            -@note_groups.each do |ng|
+              =link_to ng.date.strftime('%A %B %e, %Y'), "/poop/#{ng.id}", class: "collection-item black-text"
+              -# %li.collection-item
+              -#   %span.title
+              -#   =ng.date.strftime('%A %B %e, %Y')
+        .card-action

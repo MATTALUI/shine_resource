@@ -41,6 +41,9 @@ gem 'font-awesome-sass', '~> 5.3.1'
 
 gem 'simple_form'
 gem 'american_date'
+gem 'local_time'
+
+gem "audited", "~> 4.7"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
