@@ -7,18 +7,28 @@
           .row
             %h5=@entity
         .card-body
-          %table
-            %thead
-              %tr
-                %th Cat
-                %th Changes
-                %th Date
-                %th Time
-            %tbody
-              -@audits.each do |audit|
+          -if @audits.length.zero?
+            %h5="No audit data for #{@entity}"
+          -else
+            %table
+              %thead
                 %tr
-                  %td 1
-                  %td 2
-                  %td 3
-                  %td 4
+                  %th User
+                  %th Changes
+                  %th Date Changed
+              %tbody
+                -@audits.each do |audit|
+                  %tr
+                    %td=audit.user
+                    %td
+                      %ul
+                        -audit.audited_changes.each do |k,v|
+                          %li
+                            %p
+                              %strong=k.titleize
+                            %p
+                              %u=v.first
+                              %strong &nbsp;=>&nbsp;
+                              %u=v.last
+                    %td=local_time(audit.created_at)
         .card-action
