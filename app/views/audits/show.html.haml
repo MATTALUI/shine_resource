@@ -1,0 +1,24 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            %h5=@entity
+        .card-body
+          %table
+            %thead
+              %tr
+                %th Cat
+                %th Changes
+                %th Date
+                %th Time
+            %tbody
+              -@audits.each do |audit|
+                %tr
+                  %td 1
+                  %td 2
+                  %td 3
+                  %td 4
+        .card-action

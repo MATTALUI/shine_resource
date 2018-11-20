@@ -8,4 +8,32 @@
             %h5
               = "Report for #{@client} for #{@note_group.date.strftime('%A %B %e, %Y')}"
         .card-body
+        %table.striped
+          %tr
+            %th Time
+            %td
+              =local_time(@note.start_time, "%l:%M%P")
+              ="-"
+              =local_time(@note.end_time, "%l:%M%P %Z")
+          %tr
+            %th Transportation Trips
+            %td=@note.transportation_trips
+          %tr
+            %th Locations/Activities
+            %td=@note.location
+          %tr
+            %th Service Description
+            %td=@note.service_description
+          %tr
+            %th Client Interactions
+            %td=@note.interactions
+          %tr
+            %th Support Provided
+            %td=@note.support_provided
+          %tr
+            %th Comments
+            %td=@note.comments
         .card-action
+          -if current_user.master
+            %p.right
+              =link_to "Audits", audits_path(entity: "Note", id: @note.id)

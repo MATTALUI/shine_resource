@@ -20,6 +20,9 @@
 $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.sidenav-trigger').sideNav();
+    $('.dropdown-button').dropdown({
+      belowOrigin: true
+    });
     $('.datepicker').pickadate({
       format: 'mm/dd/yyyy',
       selectMonths: true,

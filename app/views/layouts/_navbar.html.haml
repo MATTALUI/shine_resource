@@ -6,10 +6,14 @@
       =fa_icon('bars')
     %ul.right.hide-on-med-and-down
       -if current_user.present?
-        %li=link_to "Caretakers", caretakers_path
         %li=link_to "Reports", notes_group_index_path
         %li=link_to "Clients", clients_path
-        %li=link_to "Log Out", logout_path, method: :delete
+        %li.dropdown-button{data: {activates: "admin-dropdown", target: "admin-dropdown"}}
+          =link_to "Admin", "#!", class: "dropdown-trigger"
+        %ul.dropdown-content#admin-dropdown
+          %li.yellow.darken-2=link_to "Organization Settings", "#", class: "white-text"
+          %li.yellow.darken-2=link_to "Manage Providers", caretakers_path, class: "white-text"
+        %li=link_to "Log Out", logout_path, method: :delete, class: "amber darken-3"
       -else
         %li=link_to "About", nil
     %ul.side-nav#sideNav

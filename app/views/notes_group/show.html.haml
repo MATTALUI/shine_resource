@@ -27,3 +27,6 @@
                   -@notes.sort{|a,b| a.client.first_name <=> b.client.first_name}.each do |note|
                     =link_to note.client, notes_group_note_path(notes_group_id: @note_group.id, id: note.id), class: "collection-item black-text"
         .card-action
+          -if current_user.master
+            %p.right
+              =link_to "Audits", audits_path(entity: "NoteGroup", id: @note_group.id)

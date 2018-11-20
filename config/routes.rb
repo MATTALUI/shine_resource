@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get    'login',  controller: 'application', as: 'login'
   post   'create_session', controller: 'application', as: 'create_session'
   delete 'logout', controller: 'application', as: 'logout'
-
+  # custom routes for audits
+  get    '/audits/:entity/:id', controller: 'audits', action: 'show', as: 'audits'
 
   resources :clients
   resources :caretakers
