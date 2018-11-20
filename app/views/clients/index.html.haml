@@ -5,7 +5,7 @@
       .card-content
         .card-title
           .row
-            =form_tag root_path, url: root_path, method: :get, class: "col s6" do
+            =form_tag clients_path, method: :get, class: "col s6" do
               .row
                 =text_field_tag "search", @search,  placeholder: "Search Clients", class: "col s10"
                 =button_tag name: nil, class: "btn-floating yellow darken-3", type: "submit" do
