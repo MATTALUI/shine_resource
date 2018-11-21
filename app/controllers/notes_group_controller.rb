@@ -7,4 +7,12 @@ class NotesGroupController < ApplicationController
     @note_group = NoteGroup.find(params[:id])
     @notes = @note_group.notes.includes(:client)
   end
+
+  def new
+    # @note_group = NoteGroup.new
+  end
+
+  def create
+    raise
+  end
 end

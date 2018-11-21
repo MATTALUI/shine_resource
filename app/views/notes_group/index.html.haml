@@ -15,7 +15,9 @@
       .card-content
         .card-title
           .row
-            %h5 Reports
+            .col.s9
+              %h5 Reports
+            =link_to "Submit Report", new_notes_group_path, class: "col s3 btn yellow darken-3"
         .card-body
           -if @note_groups.length.zero?
             %h5.center-text No Report available

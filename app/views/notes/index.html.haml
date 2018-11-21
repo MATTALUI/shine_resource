@@ -12,7 +12,4 @@
           %ul.collection
             -@note_groups.each do |ng|
               =link_to ng.date.strftime('%A %B %e, %Y'), "/poop/#{ng.id}", class: "collection-item black-text"
-              -# %li.collection-item
-              -#   %span.title
-              -#   =ng.date.strftime('%A %B %e, %Y')
         .card-action

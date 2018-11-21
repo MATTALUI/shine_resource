@@ -23,9 +23,13 @@ $(document).ready(function(){
     $('.dropdown-button').dropdown({
       belowOrigin: true
     });
+    $('.timepicker').pickatime({
+      autoclose: true
+    });
     $('.datepicker').pickadate({
       format: 'mm/dd/yyyy',
       selectMonths: true,
-      selectYears: 150
+      selectYears: 150,
+      autoclose: true
     });
 });

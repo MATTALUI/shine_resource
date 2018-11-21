@@ -51,3 +51,9 @@ textarea{
    width: max-content !important;
    height:auto !important;
 }
+.clockpicker-tick:hover{
+  background-color: rgba(251, 192, 45, .3);
+}
+.clockpicker-canvas line { stroke: #fbc02d; }
+.clockpicker-canvas-bearing { fill: #fbc02d; }
+.clockpicker-canvas-bg { fill: #fbc02d; }
