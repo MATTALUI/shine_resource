@@ -27,8 +27,8 @@
                             %p
                               %strong=k.titleize
                             %p
-                              %u=v.first
+                              %u=v.first rescue v
                               %strong &nbsp;=>&nbsp;
-                              %u=v.last
+                              %u=v.last rescue v
                     %td=local_time(audit.created_at)
         .card-action

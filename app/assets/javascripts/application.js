@@ -20,6 +20,7 @@
 $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.sidenav-trigger').sideNav();
+    $('select').material_select();
     $('.dropdown-button').dropdown({
       belowOrigin: true
     });

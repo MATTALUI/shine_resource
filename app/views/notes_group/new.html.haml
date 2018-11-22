@@ -6,6 +6,7 @@
         .card-title
         .card-body
           %p.center-text Create a report indicating times, people, and activities for the whole group.
+          %hr
           =simple_form_for :note_group, url: notes_group_index_path do |f|
             =f.input :caretaker_id, as: :hidden, input_html: {value: current_user.id}
             .row
@@ -15,6 +16,9 @@
                 =f.input :start_time, as: :string, input_html: {class: "timepicker white"}
               .col.s4
                 =f.input :end_time, as: :string, input_html: {class: "timepicker white"}
+              .col.s12
+                =f.input :client_id, collection: @clients, label: "Clients", input_html: {multiple: true, class: "white"}
+            %hr
             .row
               .col.s12
                 =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips", input_html: {class: "white"}
@@ -29,6 +33,6 @@
               .col.s12
                 =f.input :comments, as: :text, required: false, input_html: {class: "white"}
               .col.s12
-                %button.btn.yellow.darken-3 Create Report
+                %button.btn.yellow.darken-3.right Create Report
 
         .card-action

@@ -1,2 +1,45 @@
-%h1 Notes#new
-%p Find me in app/views/notes/new.html.haml
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+        .card-body
+          %p.center-text Specify details for every client involved.
+          %hr
+          =form_tag notes_group_notes_path do |f|
+            -@notes.each do |note|
+              %ul.collapsible{data: {collapsible: "expandible"}}
+                %li
+                  .collapsible-header.active.grey.white-text
+                    =note.client
+                  .collapsible-body.white
+                    .row
+                      .col.s4
+                        %label Date
+                        =text_field_tag "date", @note_group.date.strftime('%-m/%-d/%Y'), readonly:true
+                      .col.s4
+                        %label Start time
+                        =text_field_tag "start_time", @note_group.start_time, class: "timepicker"
+                      .col.s4
+                        %label End time
+                        =text_field_tag "end_time", @note_group.end_time
+                    .row
+                      .col.s12
+                        %label Locations and Activities
+                        =text_area_tag "updates[#{note.client.id}]location", note.location, class: "white"
+                      .col.s12
+                        %label Support provided
+                        =text_area_tag "updates[#{note.client.id}]support_provided", note.support_provided, class: "white"
+                      .col.s12
+                        %label Services description
+                        =text_area_tag "updates[#{note.client.id}]service_description", note.service_description, class: "white"
+                      .col.s12
+                        %label Interaction
+                        =text_area_tag "updates[#{note.client.id}]interactions", note.interactions, class: "white"
+                      .col.s12
+                        %label Comments
+                        =text_area_tag "updates[#{note.client.id}]comments", note.comments, class: "white"
+
+            =submit_tag "Submit Reports", class: "btn yellow darken-3 right"
+        .card-action
