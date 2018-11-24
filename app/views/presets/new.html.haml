@@ -1,0 +1,19 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            %h5 Create Preset
+        .card-body
+          .row
+            =simple_form_for @preset, url: presets_path, method: :post do |f|
+              =f.input :caretaker_id, as: :hidden, input_html: {value: current_user.id}
+              =f.input :client_id, collection: @clients,label: "Client(s)", input_html: {multiple: true}
+              =f.input :type, collection: @types
+              =f.input :text, input_html: {class: "white"}
+              =f.input :active
+              %br
+              %button.btn.yellow.darken-3 Create Preset
+        .card-action

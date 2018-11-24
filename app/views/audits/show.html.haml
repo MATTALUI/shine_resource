@@ -14,6 +14,7 @@
               %thead
                 %tr
                   %th User
+                  %th IP Address
                   %th Changes
                   %th Date Changed
               %tbody
@@ -21,14 +22,6 @@
                   %tr
                     %td=audit.user
                     %td
-                      %ul
-                        -audit.audited_changes.each do |k,v|
-                          %li
-                            %p
-                              %strong=k.titleize
-                            %p
-                              %u=v.first rescue v
-                              %strong &nbsp;=>&nbsp;
-                              %u=v.last rescue v
+                    %td
                     %td=local_time(audit.created_at)
         .card-action

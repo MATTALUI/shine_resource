@@ -41,7 +41,8 @@ class NotesGroupController < ApplicationController
     Client.where(id: param_notes[:client_id]).each do |client|
       notes << template.merge({ client_id: client.id })
     end
-    Note.create(notes)
+    notes = Note.create(notes)
+    raise
 
     redirect_to new_notes_group_note_path(notes_group_id: @note_group)
 

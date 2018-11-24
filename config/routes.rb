@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get    '/audits/:entity/:id', controller: 'audits', action: 'show', as: 'audits'
 
   resources :clients
+  resources :presets
   resources :caretakers
   resources :memos, only: [:create]
   resources :notes_group do
