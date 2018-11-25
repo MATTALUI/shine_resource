@@ -10,6 +10,7 @@ class NotesGroupController < ApplicationController
 
   def new
     @clients = Client.with_org(current_user.organization.id)
+    @presets = Preset.active.caretaker(current_user.id).client_neutral.group_by(&:preset_type)
   end
 
   def create
@@ -42,7 +43,6 @@ class NotesGroupController < ApplicationController
       notes << template.merge({ client_id: client.id })
     end
     notes = Note.create(notes)
-    raise
 
     redirect_to new_notes_group_note_path(notes_group_id: @note_group)
 

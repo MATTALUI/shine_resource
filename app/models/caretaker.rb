@@ -1,10 +1,11 @@
 class Caretaker < ApplicationRecord
   audited
-  
+
   has_secure_password
   belongs_to :organization
   has_many :memos
   has_many :note_groups
+  has_many :presets
 
   def to_s
     return [self.first_name, self.last_name].compact.join(' ')

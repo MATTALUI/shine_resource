@@ -11,7 +11,8 @@
             =simple_form_for @preset, url: presets_path, method: :post do |f|
               =f.input :caretaker_id, as: :hidden, input_html: {value: current_user.id}
               =f.input :client_id, collection: @clients,label: "Client(s)", input_html: {multiple: true}
-              =f.input :type, collection: @types
+              =f.input :preset_type, collection: @types
+              =f.input :short_code
               =f.input :text, input_html: {class: "white"}
               =f.input :active
               %br

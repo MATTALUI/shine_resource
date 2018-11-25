@@ -58,3 +58,7 @@ textarea{
 .clockpicker-canvas-bearing { fill: #fbc02d; }
 .clockpicker-canvas-bg { fill: #fbc02d; }
 ul.dropdown-content.select-dropdown li span { color: #000; }
+.clickable { cursor: pointer; }
+.chip-preset:hover{
+  background-color: white;
+}

@@ -22,17 +22,60 @@
             .row
               .col.s12
                 =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips", input_html: {class: "white"}
+
+              .col.s12
+                -(@presets[""].to_a+@presets["location"].to_a).each do |preset|
+                  .chip.clickable.chip-preset{data: {presetType: "location", value: preset.text }}
+                    =preset
               .col.s12
                 =f.input :location, as: :text, required: false, label: "Locations and Activities", input_html: {class: "white"}
+
+              .col.s12
+                -(@presets[""].to_a+@presets["support_provided"].to_a).each do |preset|
+                  .chip.clickable.chip-preset{data: {presetType: "support_provided", value: preset.text }}
+                    =preset
               .col.s12
                 =f.input :support_provided, as: :text, required: false, input_html: {class: "white"}
+
+              .col.s12
+                -(@presets[""].to_a+@presets["service_description"].to_a).each do |preset|
+                  .chip.clickable.chip-preset{data: {presetType: "service_description", value: preset.text }}
+                    =preset
               .col.s12
                 =f.input :service_description, as: :text, required: false, input_html: {class: "white"}
+
+              .col.s12
+                -(@presets[""].to_a+@presets["interaction"].to_a).each do |preset|
+                  .chip.clickable.chip-preset{data: {presetType: "interaction", value: preset.text }}
+                    =preset
               .col.s12
                 =f.input :interaction, as: :text, required: false, input_html: {class: "white"}
+
+              .col.s12
+                -(@presets[""].to_a+@presets["comments"].to_a).each do |preset|
+                  .chip.clickable.chip-preset{data: {presetType: "comments", value: preset.text }}
+                    =preset
               .col.s12
                 =f.input :comments, as: :text, required: false, input_html: {class: "white"}
+
               .col.s12
                 %button.btn.yellow.darken-3.right Create Report
 
         .card-action
+
+:javascript
+  $('.chip-preset').on('click', function(event){
+    var $chip, val, type, target, $ele, originalValue, newValue
+    $chip = $(this);
+    val = $chip.data('value');
+    type = $chip.data('presettype');
+    target = "#note_group_"+type;
+    $ele = $(target);
+    originalValue = $ele.val();
+    if (val[val.length-1] !== "."){
+      val = val + "."
+    }
+    newValue = originalValue + " " + val
+    // console.log('clicked me!');
+    $ele.val(newValue);
+  });

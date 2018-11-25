@@ -1,8 +1,6 @@
 class Client < ApplicationRecord
   audited
 
-  belongs_to :organization
-
   attr_encrypted :addr1,            key: ENV["encryption_key"]
   attr_encrypted :addr2,            key: ENV["encryption_key"]
   attr_encrypted :dob,              key: ENV["encryption_key"]
@@ -15,8 +13,10 @@ class Client < ApplicationRecord
   attr_encrypted :shine_services,   key: ENV["encryption_key"]
   attr_encrypted :photo_url,        key: ENV["encryption_key"]
 
+  belongs_to :organization
   has_many :memos
   has_many :notes
+  has_many :presets
 
   scope :with_org, ->(org_id) {where(organization_id: org_id)}
   scope :search,   ->(term){ where('lower(first_name) LIKE ?', "%#{term.downcase}%") }
