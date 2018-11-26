@@ -9,7 +9,8 @@
           %hr
           =form_tag notes_group_notes_path do |f|
             -@notes.each do |note|
-              %ul.collapsible{data: {collapsible: "expandible"}}
+              -presets = (@presets[note.client_id].to_a + @presets[nil].to_a).group_by(&:preset_type)
+              %ul.collapsible.client_note{data: {collapsible: "expandible"}}
                 %li
                   .collapsible-header.active.grey.white-text
                     =note.client
@@ -26,20 +27,60 @@
                         =text_field_tag "end_time", @note_group.end_time
                     .row
                       .col.s12
+                        -(presets[""].to_a+presets["location"].to_a).each do |preset|
+                          .chip.clickable.chip-preset{data: {presetType: "location", value: preset.text }}
+                            =preset
+                      .col.s12
                         %label Locations and Activities
                         =text_area_tag "updates[#{note.client.id}]location", note.location, class: "white"
+
+                      .col.s12
+                        -(presets[""].to_a+presets["support_provided"].to_a).each do |preset|
+                          .chip.clickable.chip-preset{data: {presetType: "support_provided", value: preset.text }}
+                            =preset
                       .col.s12
                         %label Support provided
                         =text_area_tag "updates[#{note.client.id}]support_provided", note.support_provided, class: "white"
+
+                      .col.s12
+                        -(presets[""].to_a+presets["service_description"].to_a).each do |preset|
+                          .chip.clickable.chip-preset{data: {presetType: "service_description", value: preset.text }}
+                            =preset
                       .col.s12
                         %label Services description
                         =text_area_tag "updates[#{note.client.id}]service_description", note.service_description, class: "white"
+
                       .col.s12
-                        %label Interaction
+                        -(presets[""].to_a+presets["interactions"].to_a).each do |preset|
+                          .chip.clickable.chip-preset{data: {presetType: "interactions", value: preset.text }}
+                            =preset
+                      .col.s12
+                        %label Interactions
                         =text_area_tag "updates[#{note.client.id}]interactions", note.interactions, class: "white"
+
+                      .col.s12
+                        -(presets[""].to_a+presets["comments"].to_a).each do |preset|
+                          .chip.clickable.chip-preset{data: {presetType: "comments", value: preset.text }}
+                            =preset
                       .col.s12
                         %label Comments
                         =text_area_tag "updates[#{note.client.id}]comments", note.comments, class: "white"
 
             =submit_tag "Submit Reports", class: "btn yellow darken-3 right"
         .card-action
+
+:javascript
+  $('.chip-preset').on('click', function(event){
+    var $chip, val, type, target, $ele, originalValue, newValue
+    $chip = $(this);
+    val = $chip.data('value');
+    type = $chip.data('presettype');
+    target = "[name$='"+type+"']";
+    $ele = $chip.closest('.client_note').find(target)
+    originalValue = $ele.val();
+    if (val[val.length-1] !== "."){
+      val = val + "."
+    }
+    newValue = originalValue + " " + val;
+    $ele.val(newValue);
+  });

@@ -11,8 +11,7 @@ class NotesController < ApplicationController
 
   def new
     @notes = @note_group.notes.includes(:client)
-    @presets = Preset.caretaker(current_user.id)
-    raise
+    @presets = Preset.active.caretaker(current_user.id).group_by(&:client_id)
   end
 
   def create
