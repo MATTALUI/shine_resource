@@ -48,8 +48,50 @@ class NotesGroupController < ApplicationController
 
   end
 
+  def shine_report
+    start_date = Date.parse(params.dig(:generator, :start_date)).beginning_of_day
+    end_date   = Date.parse(params.dig(:generator, :end_date)).end_of_day
+    @note_groups = NoteGroup.caretaker(current_user.id).between_dates(start_date, end_date)
+
+    book = Spreadsheet::Workbook.new
+
+
+    clients_sheet = book.create_worksheet :name => 'Client Report'
+    clients_sheet.row(0).concat(shine_report_client_headings)
+    index = 1
+    @note_groups.each do |group|
+      group.notes.each do |note|
+        row = []
+        row << note.client.to_s
+        row << group.date.strftime("%-m/%-d/%Y")
+        row << note.start_time.strftime("%l:%M%p %Z")
+        row << note.end_time.strftime("%l:%M%p %Z")
+        row << group.total_hours
+        row << note.service_description
+        row << note.transportation_trips
+        row << note.location
+        row << note.interactions
+        row << note.support_provided
+        row << note.comments
+        row << false
+        row << current_user.email
+        clients_sheet.row(index).concat(row)
+        index += 1
+      end
+    end
+
+    book.write 'test.xls'
+
+
+    redirect_to root_path
+  end
+
   private
   def note_group_params
     params.require(:note_group).permit(:start_time, :end_time, :caretaker_id, :date, :total_hours, :billed_for)
+  end
+
+  def shine_report_client_headings
+    return ["Client", "Date", "Start Time", "End Time", "Total Hours", "Service Provided", "Transportation Trips", "What/Where? (locations and activities)", "People Client Interacted With", "Support Staff Provided", "Comments/Outcome", "Incident Report Filed?", "Email Address"]
   end
 end

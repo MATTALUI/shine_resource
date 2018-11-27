@@ -1,4 +1,16 @@
 =render 'layouts/navbar'
+-if current_user.master 
+  .row
+    .col.s10.offset-s1
+      .card.grey.lighten-3
+        .card-content
+          .card-title
+            .row
+              %h5
+                Master reports
+          .card-body
+          .card-action
+
 .row
   .col.s10.offset-s1
     .card.grey.lighten-3
@@ -6,9 +18,17 @@
         .card-title
           .row
             %h5
-              Master reports
+              -# Generate Shine Report
         .card-body
-        .card-action
+          .row
+            =simple_form_for :generator, url: shine_report_notes_group_index_path, method: :get do |f|
+              .col.s4
+                =f.input :start_date,  input_html: {class: "datepicker white"}
+              .col.s4
+                =f.input :end_date,  input_html: {class: "datepicker white"}
+              %button.btn.yellow.darken-3.col.s4 Generate Report
+        -# .card-action
+
 .row
   .col.s10.offset-s1
     .card.grey.lighten-3

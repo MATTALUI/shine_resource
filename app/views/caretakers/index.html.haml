@@ -5,6 +5,13 @@
       .card-content
         .card-title
           .row
-            %h5 Carektaker Index
+            %h5.col.s6
+              =@caretakers.length
+              Providers at
+              =current_user.organization
         .card-body
+          %table.striped.highlight
+            %thead
+              %tr
+                %th C
         .card-action

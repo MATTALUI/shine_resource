@@ -1,5 +1,6 @@
 class PresetsController < ApplicationController
   def index
+    @presets = Preset.caretaker(current_user.id).includes(:client)
   end
 
   def show

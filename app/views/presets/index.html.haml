@@ -5,8 +5,27 @@
       .card-content
         .card-title
           .row
-            %h5
-            =Preset.caretaker(current_user.id).count
-            Presets
+            %h5.col.s9
+              =@presets.length
+              Presets
+            =link_to "Create New Preset", new_preset_path, class: "btn yellow darken-3 col s3"
         .card-body
+          .row
+            %table.striped.highlight
+              %thead
+                %tr
+                  %th Client
+                  %th Short Code
+                  %th Text
+                  %th Active
+                  %th Create Date
+                  %th Actions
+              %tbody
+                -@presets.each do |preset|
+                  %tr
+                    %td=preset.client
+                    %td=preset.short_code
+                    %td=preset.text
+                    %td=preset.active
+                    %td=preset.created_at
         .card-action

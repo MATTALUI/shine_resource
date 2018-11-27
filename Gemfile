@@ -44,6 +44,8 @@ gem 'american_date'
 gem 'local_time'
 
 gem "audited", "~> 4.7"
+gem "spreadsheet"
+gem "roo", "~> 2.7.0"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :memos, only: [:create]
   resources :notes_group do
     resources :notes
+    collection do
+      get "shine_report"
+    end
   end
 
   root to: 'notes_group#index'
