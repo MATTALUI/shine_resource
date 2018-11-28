@@ -13,5 +13,16 @@
           %table.striped.highlight
             %thead
               %tr
-                %th C
+                %th Provider
+                %th Email
+                %th
+            %tbody
+              -@caretakers.each do |caretaker|
+                %tr
+                  %td=caretaker
+                  %td=caretaker.email
+                  %td
+                    =link_to "View", caretaker_path(caretaker), class: "btn yellow darken-3"
+
+
         .card-action
