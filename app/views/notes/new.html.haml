@@ -21,10 +21,13 @@
                         =text_field_tag "date", @note_group.date.strftime('%-m/%-d/%Y'), readonly:true
                       .col.s4
                         %label Start time
-                        =text_field_tag "start_time", @note_group.start_time, class: "timepicker"
+                        -start_time = @note_group.start_time + (current_user.utc_offset * 3600)
+                        =text_field_tag "updates[#{note.client.id}]start_time", start_time.strftime("%l:%M%p"), class: "timepicker"
                       .col.s4
                         %label End time
-                        =text_field_tag "end_time", @note_group.end_time
+                        -end_time = @note_group.end_time + (current_user.utc_offset * 3600)
+                        =text_field_tag "updates[#{note.client.id}]end_time", end_time.strftime("%l:%M%p"), class: "timepicker"
+
                     .row
                       .col.s12
                         -(presets[""].to_a+presets["location"].to_a).each do |preset|

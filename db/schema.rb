@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181124002027) do
+ActiveRecord::Schema.define(version: 20181129235733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20181124002027) do
     t.boolean "master", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "timezone_info", default: "Mountain Time (US & Canada)|-7"
     t.index ["email"], name: "index_caretakers_on_email"
     t.index ["organization_id"], name: "index_caretakers_on_organization_id"
   end
@@ -133,17 +134,11 @@ ActiveRecord::Schema.define(version: 20181124002027) do
     t.index ["note_group_id"], name: "index_notes_on_note_group_id"
   end
 
-  create_table "organization_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "organization_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_organization_settings_on_organization_id"
-  end
-
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "timezone_info", default: "Mountain Time (US & Canada)|-7"
   end
 
   create_table "presets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

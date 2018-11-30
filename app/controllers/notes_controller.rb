@@ -15,6 +15,12 @@ class NotesController < ApplicationController
   end
 
   def create
+    params[:updates].each do |client_id, note|
+      note[:start_time] = note[:start_time] << " #{current_user.utc_offset}"
+      note[:end_time]   = note[:end_time] << " #{current_user.utc_offset}"
+      # note[:start_time] = Time.parse(note[:start_time] << " #{current_user.utc_offset}")
+      # note[:end_time]   = Time.parse(note[:end_time] << " #{current_user.utc_offset}")
+    end
     @note_group.notes.where(client_id: params[:updates].keys).each do |note|
       note.update(params[:updates][note.id])
     end

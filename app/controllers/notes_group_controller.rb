@@ -1,4 +1,5 @@
 class NotesGroupController < ApplicationController
+  include ActiveSupport
   def index
     @note_groups = current_user.note_groups.order(date: :desc)
   end
@@ -19,8 +20,8 @@ class NotesGroupController < ApplicationController
     @note_group = NoteGroup.new
     @note_group.caretaker_id = param_notes[:caretaker_id]
     @note_group.date = Date.parse(param_notes[:date])
-    @note_group.start_time = Time.parse(param_notes[:start_time])
-    @note_group.end_time = Time.parse(param_notes[:end_time])
+    @note_group.start_time = Time.parse(param_notes[:start_time] << " #{current_user.utc_offset}")
+    @note_group.end_time = Time.parse(param_notes[:end_time]  << " #{current_user.utc_offset}")
     @note_group.total_hours = (@note_group.end_time - @note_group.start_time)/1.hour
     @note_group.billed_for = false
     @note_group.save
@@ -51,6 +52,7 @@ class NotesGroupController < ApplicationController
   def shine_report
     start_date = Date.parse(params.dig(:generator, :start_date)).beginning_of_day
     end_date   = Date.parse(params.dig(:generator, :end_date)).end_of_day
+    @organization = current_user.organization
     @note_groups = NoteGroup.caretaker(current_user.id).between_dates(start_date, end_date)
 
     book = Spreadsheet::Workbook.new
@@ -64,8 +66,10 @@ class NotesGroupController < ApplicationController
         row = []
         row << note.client.to_s
         row << group.date.strftime("%-m/%-d/%Y")
-        row << note.start_time.strftime("%l:%M%p %Z")
-        row << note.end_time.strftime("%l:%M%p %Z")
+        start_time = note.start_time + (@organization.utc_offset.hours)
+        row << start_time.strftime("%l:%M%p")
+        end_time = note.end_time + (@organization.utc_offset.hours)
+        row << end_time.strftime("%l:%M%p")
         row << group.total_hours
         row << note.service_description
         row << note.transportation_trips
