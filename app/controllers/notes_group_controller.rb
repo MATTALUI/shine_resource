@@ -85,9 +85,10 @@ class NotesGroupController < ApplicationController
     end
 
     book.write 'test.xls'
+    send_file  'test.xls'
 
 
-    redirect_to root_path
+    # redirect_to root_path
   end
 
   private

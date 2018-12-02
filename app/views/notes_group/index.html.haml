@@ -1,5 +1,5 @@
 =render 'layouts/navbar'
--if current_user.master 
+-if current_user.master
   .row
     .col.s10.offset-s1
       .card.grey.lighten-3
@@ -18,7 +18,7 @@
         .card-title
           .row
             %h5
-              -# Generate Shine Report
+              -# Shine Report
         .card-body
           .row
             =simple_form_for :generator, url: shine_report_notes_group_index_path, method: :get do |f|
@@ -40,7 +40,7 @@
             =link_to "Submit Report", new_notes_group_path, class: "col s3 btn yellow darken-3"
         .card-body
           -if @note_groups.length.zero?
-            %h5.center-text No Report available
+            %h5.center-text No Reports available
           %ul.collection
             -@note_groups.each do |ng|
               =link_to ng.date.strftime('%A %B %e, %Y'), notes_group_path(ng), class: "collection-item black-text"

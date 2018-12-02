@@ -16,6 +16,7 @@ class ClientsController < ApplicationController
 
   def create
     @client = Client.new(client_params)
+    @client.organization_id = current_user.organization.id
     @client.save
     @client.dob = Date.parse(params.dig(:client, :dob)).to_s rescue nil
     uploaded_picture = params.dig(:client, :photo)
