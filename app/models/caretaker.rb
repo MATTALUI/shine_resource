@@ -1,6 +1,6 @@
 class Caretaker < ApplicationRecord
   audited
-  has_secure_password
+  has_secure_password validations: false
   include TimeRelated
   belongs_to :organization
   has_many :memos
@@ -13,5 +13,9 @@ class Caretaker < ApplicationRecord
 
   def notes_due
     last_group = self.note_groups.most_recent
+  end
+
+  def pending?
+    return self.password_digest.blank? && self.password_reset_token.present?
   end
 end

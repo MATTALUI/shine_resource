@@ -20,7 +20,8 @@
                 %th
             %tbody
               -@caretakers.each do |caretaker|
-                %tr
+                -warning = caretaker.pending? ? "yellow lighten-5" : nil
+                %tr{class: warning}
                   %td=caretaker
                   %td=caretaker.email
                   %td

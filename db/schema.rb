@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181202233305) do
+ActiveRecord::Schema.define(version: 20181203194144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20181202233305) do
     t.string "password_reset_token", limit: 69
     t.index ["email"], name: "index_caretakers_on_email"
     t.index ["organization_id"], name: "index_caretakers_on_organization_id"
+    t.index ["password_reset_token"], name: "index_caretakers_on_password_reset_token", unique: true
   end
 
   create_table "clients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,0 +1,5 @@
+%h5
+  ="Welcome to #{@organization}"
+%hr
+%p
+  ="#{@current_user} just created a provider's account for you with #{@organization}. Click #{link_to "here", "http://localhost:300/caretaker/password/#{@token}"} in order to complete your registration or visit http://localhost:300/caretaker/password/#{@token} in order to set a password."
