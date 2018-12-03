@@ -7,4 +7,24 @@
           .row
             %h5.col.s6 Add Provider
         .card-body
-        .card-action
+          =simple_form_for :caretaker, method: :post, url: caretakers_path do |f|
+            .row
+              .col.s6
+                =f.input :first_name
+            .row
+              .col.s6
+                =f.input :last_name
+            .row
+              .col.s6
+                =f.input :email
+            .row
+              .col.s6
+                =f.input :timezone, collection: @time_zones, value_method: :name
+            .row
+              .col.s6
+                =f.input :phone, label: "Phone number", required: false
+            .row
+              .col.6
+                =f.input :master, as: :boolean, label: "Give admin privileges"
+            .row
+              %button.btn.yellow.darken-3 Create Provider
