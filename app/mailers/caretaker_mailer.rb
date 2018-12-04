@@ -1,4 +1,8 @@
 class CaretakerMailer < ApplicationMailer
+  # def test
+  #   return mail(to: 'example@email.com', subject: "This is a test.")
+  # end
+
   def new_caretaker_mail
     @caretaker = params[:caretaker]
     @email = @caretaker.email

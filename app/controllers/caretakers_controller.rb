@@ -1,5 +1,6 @@
 class CaretakersController < ApplicationController
   include ActiveSupport
+  skip_before_action :authenticate_user, only: [:update_password, :password]
   def index
     @caretakers = Caretaker.where(organization_id: current_user.organization_id)
   end
@@ -44,6 +45,20 @@ class CaretakersController < ApplicationController
   end
 
   def update_password
+    token = params.dig(:reset, :prt)
+    password = params.dig(:reset, :password)
+    confirm_password = params.dig(:reset, :confirm_password)
+    @caretaker = Caretaker.find_by_password_reset_token(token)
+    if password == confirm_password && @caretaker.present?
+      @caretaker.password = password
+      @caretaker.password_reset_token = nil
+      @caretaker.save
+      flash[:notice] = "Successfully updated password."
+      redirect_to login_path
+    else
+      flash[:error] = "Encountered an error setting your password."
+      redirect_back(fallback_location: login_path)
+    end
   end
 
   private

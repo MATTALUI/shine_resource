@@ -8,12 +8,17 @@ Rails.application.routes.draw do
 
   resources :clients
   resources :presets
-  resources :caretakers
   resources :memos, only: [:create]
   resources :notes_group do
     resources :notes
     collection do
       get "shine_report"
+    end
+  end
+  resources :caretakers do
+    collection do
+      get "password"
+      post "password", action: :update_password
     end
   end
 
