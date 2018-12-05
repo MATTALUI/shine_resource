@@ -10,7 +10,7 @@
               Providers at
               =current_user.organization
             -if current_user.master
-              =link_to "Add Provider", new_caretaker_path, class: "btn yellow darken-3 col s6"
+              =link_to "Add Provider", new_caretaker_path, class: "btn #{org_color} col s6"
         .card-body
           %table.striped.highlight
             %thead
@@ -20,12 +20,12 @@
                 %th
             %tbody
               -@caretakers.each do |caretaker|
-                -warning = caretaker.pending? ? "yellow lighten-5" : nil
+                -warning = caretaker.pending? ? org_color('lighten-5') : nil
                 %tr{class: warning}
                   %td=caretaker
                   %td=caretaker.email
                   %td
-                    =link_to "View", caretaker_path(caretaker), class: "btn yellow darken-3"
+                    =link_to "View", caretaker_path(caretaker), class: "btn #{org_color}"
 
 
         .card-action

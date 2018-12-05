@@ -1,27 +1,32 @@
-%nav.yellow.darken-3
-  .nav-wrapper
-    -if current_user.present?
-      =link_to current_user.organization.name, root_path, class: "brand-logo", style: "margin-left: 1em;"
-    =link_to "", class: "sidenav-trigger hide-on-med-and-up", data:{activates: "sideNav"} do
-      =fa_icon('bars')
-    %ul.right.hide-on-med-and-down
-      -if current_user.present?
-        %li=link_to "Reports", notes_group_index_path
-        %li=link_to "Clients", clients_path
-        -if current_user.master
-          %li.dropdown-button{data: {activates: "admin-dropdown", target: "admin-dropdown"}}
-            =link_to "Admin", "#!", class: "dropdown-trigger"
-          %ul.dropdown-content#admin-dropdown
-            %li.yellow.darken-2=link_to current_user, caretaker_path(current_user), class: "white-text"
-            %li.yellow.darken-2=link_to "Organization Settings", "#", class: "white-text"
-            %li.yellow.darken-2=link_to "Manage Providers", caretakers_path, class: "white-text"
-        -else
-          %li=link_to current_user, caretaker_path(current_user)
-        %li=link_to "Log Out", logout_path, method: :delete, class: "amber darken-3"
-      -else
+-if current_user.present?
+  %nav{class: org_color}
+    .nav-wrapper
+      =link_to current_organization.name, root_path, class: "brand-logo", style: "margin-left: 1em;"
+      =link_to "", class: "sidenav-trigger hide-on-med-and-up", data:{activates: "sideNav"} do
+        =fa_icon('bars')
+      %ul.right.hide-on-med-and-down
+        -if current_user.present?
+          %li=link_to "Reports", notes_group_index_path
+          %li=link_to "Clients", clients_path
+          -if current_user.master
+            %li.dropdown-button{data: {activates: "admin-dropdown", target: "admin-dropdown"}}
+              =link_to "Admin", "#!", class: "dropdown-trigger"
+            %ul.dropdown-content#admin-dropdown
+              %li{class: org_color('darken-2')}=link_to current_user, caretaker_path(current_user), class: "white-text"
+              %li{class: org_color('darken-2')}=link_to "Organization Settings", organization_path(current_organization), class: "white-text"
+              %li{class: org_color('darken-2')}=link_to "Manage Providers", caretakers_path, class: "white-text"
+          -else
+            %li=link_to current_user, caretaker_path(current_user)
+          %li=link_to "Log Out", logout_path, method: :delete, class: org_color('darken-4')
+-else
+  %nav.grey.darken-3
+    .nav-wrapper
+      %ul.right.hide-on-med-and-down
         %li=link_to "About", nil
-    %ul.side-nav#sideNav
-      -if current_user.present?
-        %li=link_to "Reports", notes_group_index_path
-        %li=link_to "Clients", clients_path
-        %li=link_to "Log Out", logout_path, method: :delete
+
+
+%ul.side-nav#sideNav
+  -if current_user.present?
+    %li=link_to "Reports", notes_group_index_path
+    %li=link_to "Clients", clients_path
+    %li=link_to "Log Out", logout_path, method: :delete

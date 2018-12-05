@@ -1,0 +1,43 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    =simple_form_for :organization, url: organization_path(@organization), method: :put do |f|
+      .card.grey.lighten-3
+        .card-content
+          .card-title
+            .row
+              .col.s6
+                %h5=@organization
+              %button.btn.col.s6{class:@organization.color_class} Save Changes
+            %hr
+          .card-body
+            .row
+              %table
+                %tr
+                  %th Organization Name
+                  %td=f.input :name, label: false
+                %tr
+                  %th Timezone
+                  %td=f.input :timezone, collection: @time_zones, value_method: :name, label: false
+                %tr
+                  %th Organization Color
+                  %td=f.input :color, collection: @colors, label: false, input_html: {id: "org_colors"}
+          .card-action
+:javascript
+  $(document).ready(function(){
+    $('.organization_color')
+      .first('div')
+      .find('ul')
+      .children()
+      .each(function(index,ele){
+        var $li   = $(ele);
+        var $span = $li.children().first()
+        var color = $span.html().toLowerCase().replace(/ /g, '-');
+        if(color === ""){
+          $li.remove();
+        }else{
+          $span.addClass('white-text');
+          $li.addClass(color+" darken-3");
+        }
+      });
+  });

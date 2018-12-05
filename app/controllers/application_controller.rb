@@ -28,10 +28,16 @@ class ApplicationController < ActionController::Base
     @current_user ||= Caretaker.find(session[:current_user]) rescue nil
   end
 
+  def current_organization
+    return nil if current_user.blank?
+    @current_organization ||= current_user.organization rescue nil
+  end
+
   private
     def authenticate_user
       # session[:current_user] = ""
       # session[:current_user] = Matt.find.id
+      current_organization   if current_user.present?
       redirect_to login_path unless current_user.present?
     end
 end

@@ -26,7 +26,7 @@
                 =f.input :start_date,  input_html: {class: "datepicker white"}
               .col.s4
                 =f.input :end_date,  input_html: {class: "datepicker white"}
-              %button.btn.yellow.darken-3.col.s4 Generate Report
+              %button.btn.col.s4{class: org_color} Generate Report
         -# .card-action
 
 .row
@@ -37,7 +37,7 @@
           .row
             .col.s9
               %h5 Reports
-            =link_to "Submit Report", new_notes_group_path, class: "col s3 btn yellow darken-3"
+            =link_to "Submit Report", new_notes_group_path, class: "col s3 btn #{org_color}"
         .card-body
           -if @note_groups.length.zero?
             %h5.center-text No Reports available

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181203194144) do
+ActiveRecord::Schema.define(version: 20181205194300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 20181203194144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "timezone_info", default: "Mountain Time (US & Canada)|-7"
+    t.string "color", default: "yellow"
   end
 
   create_table "presets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

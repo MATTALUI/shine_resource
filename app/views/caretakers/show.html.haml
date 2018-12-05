@@ -10,7 +10,7 @@
         .card-body
           -if params[:id] == current_user.id
             .row
-              =link_to "My Presets", presets_path, class: "btn col s3 yellow darken-3"
+              =link_to "My Presets", presets_path, class: "btn col s3 #{org_color}"
           .row
             %table
               %tr

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :presets
   resources :memos, only: [:create]
+  resources :organizations, only: [:show, :edit, :update]
   resources :notes_group do
     resources :notes
     collection do

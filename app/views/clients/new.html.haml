@@ -30,7 +30,7 @@
                     .card-image
                       =image_tag DEFAULT_PHOTO, id: "photo-preview", class: "circle", style: "width:100%;"
                     .card-content.center-text
-                      %label.btn.yellow.darken-3#upload-photo-label{for: "upload-photo-input"} Upload Photo
+                      %label.btn#upload-photo-label{class: org_color,for: "upload-photo-input"} Upload Photo
                       =f.file_field :photo, id: "upload-photo-input", hidden: true
               %label Description
               =f.text_area :description, class: "white"
@@ -47,7 +47,7 @@
               %label Shine Services
               =f.text_area :shine_services, class: "white"
             .card-action
-              =f.submit "Save", class: "btn yellow darken-3 right"
+              =f.submit "Save", class: "btn #{org_color} right"
 
 :javascript
   $('#upload-photo-input').on('change', function(event){

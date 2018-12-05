@@ -8,4 +8,8 @@ class Organization < ApplicationRecord
   def to_s
     return self.name
   end
+
+  def color_class(tint="darken-3")
+    return "#{self.color} #{tint}"
+  end
 end

@@ -8,10 +8,10 @@
             =form_tag clients_path, method: :get, class: "col s6" do
               .row
                 =text_field_tag "search", @search,  placeholder: "Search Clients", class: "col s10"
-                =button_tag name: nil, class: "btn-floating yellow darken-3", type: "submit" do
+                =button_tag name: nil, class: "btn-floating #{org_color}", type: "submit" do
                   =fa_icon('search')
             -if current_user.master
-              =link_to "New Client", new_client_path,  class: "btn yellow darken-3 col s3 offset-s3"
+              =link_to "New Client", new_client_path,  class: "btn #{org_color} col s3 offset-s3"
         .card-body
           -if @clients.length.zero?
             %h5.center-text No Clients Found
@@ -20,5 +20,5 @@
               %li.collection-item.avatar
                 =image_tag client.photo_url, class: "circle"
                 %span.title=client
-                =link_to "View", client_path(client), class: "secondary-content btn waves-light waces-effect yellow darken-3"
+                =link_to "View", client_path(client), class: "secondary-content btn waves-light waces-effect #{org_color}"
         .card-action

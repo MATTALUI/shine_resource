@@ -1,0 +1,21 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            .col.s6
+              %h5=@organization
+            =link_to "Change Settings", edit_organization_path, class: "btn #{@organization.color_class} col s6"
+          %hr
+        .card-body
+          .row
+            %table
+              %tr
+                %th Timezone
+                %td=@organization.timezone
+              %tr
+                %th Company Color
+                %td{class: @organization.color_class}
+        .card-action
