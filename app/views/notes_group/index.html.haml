@@ -13,21 +13,21 @@
 
 .row
   .col.s10.offset-s1
-    .card.grey.lighten-3
-      .card-content
-        .card-title
-          .row
-            %h5
-              -# Shine Report
-        .card-body
-          .row
-            =simple_form_for :generator, url: shine_report_notes_group_index_path, method: :get do |f|
-              .col.s4
+    =simple_form_for :generator, url: shine_report_notes_group_index_path, method: :get do |f|
+      .card.grey.lighten-3
+        .card-content
+          .card-title
+            .row
+              .col.s9
+                %h5 Shine Report
+              %button.btn.col.s3{class: org_color, style: "margin-top: 1.7em;"} Generate
+          .card-body
+            .row
+              .col.s6
                 =f.input :start_date,  input_html: {class: "datepicker white"}
-              .col.s4
+              .col.s6
                 =f.input :end_date,  input_html: {class: "datepicker white"}
-              %button.btn.col.s4{class: org_color} Generate Report
-        -# .card-action
+
 
 .row
   .col.s10.offset-s1

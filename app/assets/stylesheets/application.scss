@@ -31,34 +31,28 @@ textarea{
 .btn-floating > i{
   margin-top: .2em;
 }
-.picker__date-display, .picker__weekday-display, .picker__day--selected, .picker--focused, .picker__day--selected{
-    background-color: #f9a825 !important;
-}
-.picker__nav--prev:hover, .picker__nav--next:hover{
-  background-color: #fbc02d;
-}
+
 .picker__today, .picker__close, .picker__day--today{
   color: black;
 }
-.picker__day.picker__day--today{
-  color: #f44336;
-}
-.input-field input[type=text]{
-   border-bottom: 1px solid #f44336;
-   box-shadow: 0 1px 0 0 #f44336;
-}
+
+
 .dropdown-content{
    width: max-content !important;
    height:auto !important;
 }
+
 .clockpicker-tick:hover{
-  background-color: rgba(251, 192, 45, .3);
+  background-color: rgba(150, 150, 150, .3);
 }
-.clockpicker-canvas line { stroke: #fbc02d; }
-.clockpicker-canvas-bearing { fill: #fbc02d; }
-.clockpicker-canvas-bg { fill: #fbc02d; }
+
+
 ul.dropdown-content.select-dropdown li span { color: #000; }
-.clickable { cursor: pointer; }
+
+.clickable {
+  cursor: pointer;
+}
+
 .chip-preset:hover{
   background-color: white;
 }

@@ -1,0 +1,25 @@
+- hex = ORG_COLORS[current_organization&.color]
+:css
+  .picker__date-display, .picker__weekday-display, .picker__day--selected, .picker--focused, .picker__day--selected{
+      background-color: #{hex} !important;
+  }
+
+  .picker__nav--prev:hover, .picker__nav--next:hover{
+    background-color: #{hex};
+  }
+
+  .picker__day.picker__day--today{
+    color: #{hex};
+  }
+
+  .clockpicker-canvas line {
+    stroke: #{hex};
+  }
+
+  .clockpicker-canvas-bearing {
+    fill: #{hex};
+  }
+
+  .clockpicker-canvas-bg {
+    fill: #{hex};
+  }
