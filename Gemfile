@@ -47,6 +47,8 @@ gem "audited", "~> 4.7"
 gem "spreadsheet"
 gem "roo", "~> 2.7.0"
 
+gem "chart-js-rails"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

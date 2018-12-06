@@ -17,6 +17,7 @@
 //= require jquery_ujs
 //= require materialize
 //= require local-time
+//= require Chart.min
 $(document).ready(function(){
     $('.collapsible').collapsible();
     $('.sidenav-trigger').sideNav();

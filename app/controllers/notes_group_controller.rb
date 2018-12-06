@@ -1,7 +1,12 @@
 class NotesGroupController < ApplicationController
   include ActiveSupport
   def index
-    @note_groups = current_user.note_groups.order(date: :desc)
+    if current_user.master
+      @note_groups = NoteGroup.organization(current_organization.id).order(date: :desc)
+      generate_master_report
+    else
+      @note_groups = current_user.note_groups.order(date: :desc)
+    end
   end
 
   def show
@@ -98,5 +103,12 @@ class NotesGroupController < ApplicationController
 
   def shine_report_client_headings
     return ["Client", "Date", "Start Time", "End Time", "Total Hours", "Service Provided", "Transportation Trips", "What/Where? (locations and activities)", "People Client Interacted With", "Support Staff Provided", "Comments/Outcome", "Incident Report Filed?", "Email Address"]
+  end
+
+  def generate_master_report
+    @total_reports    = @note_groups.count
+    @unbilled_reports = @note_groups.unbilled
+    @unbilled_count   = @unbilled_reports.count
+    @unbilled_hours   = @unbilled_reports.sum(&:total_hours)
   end
 end

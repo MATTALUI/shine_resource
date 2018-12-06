@@ -6,9 +6,19 @@
         .card-content
           .card-title
             .row
-              %h5
-                Master reports
+              .col.s9
+                %h5
+                  Master reports
+              =link_to "Dashboard", "", class: "btn #{org_color} col s3"
           .card-body
+            .row
+              .col.s6
+                %h5
+                  ="#{@unbilled_count}/#{@total_reports} Unbilled Reports"
+                %h5
+                  ="#{@unbilled_hours} Unbilled Hours"
+              .col.s6
+                %canvas#unbilled_reports_chart
           .card-action
 
 .row
@@ -45,3 +55,24 @@
             -@note_groups.each do |ng|
               =link_to ng.date.strftime('%A %B %e, %Y'), notes_group_path(ng), class: "collection-item black-text"
         .card-action
+-if current_user.master
+  :javascript
+    var unbilled_reports_chart = document.getElementById("unbilled_reports_chart").getContext("2d");
+    var data = {
+      datasets: [{
+          data: [#{@total_reports-@unbilled_count},#{@unbilled_count}],
+          backgroundColor: [
+            "#{ORG_COLORS[current_organization.color]}",
+            'rgba(155,155,155,.5)'
+          ]
+      }],
+      labels: [
+          'Billed',
+          'Unbilled',
+      ]
+    };
+
+    new Chart(unbilled_reports_chart,{
+      type: 'doughnut',
+      data: data
+    });
