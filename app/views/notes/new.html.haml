@@ -68,8 +68,14 @@
                       .col.s12
                         %label Comments
                         =text_area_tag "updates[#{note.client.id}]comments", note.comments, class: "white"
+                      %p.center-text
+                        %a.clickable.incedent-trigger Fill Out Incedent Report
+                    .row.incedent-report.hide
+                      .col.s12
+                        %label Incedent Report
+                        =text_area_tag "updates[#{note.client.id}]incedent_report", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
 
-            =submit_tag "Submit Reports", class: "btn yellow darken-3 right"
+            =submit_tag "Submit Reports", class: "btn #{org_color} right"
         .card-action
 
 :javascript
@@ -86,4 +92,8 @@
     }
     newValue = originalValue + " " + val;
     $ele.val(newValue);
+  });
+
+  $('.incedent-trigger').on('click', function(event){
+    $(this).closest('.client_note').find('.incedent-report').toggleClass('hide');
   });
