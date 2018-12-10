@@ -18,11 +18,19 @@ class NotesController < ApplicationController
     params[:updates].each do |client_id, note|
       note[:start_time] = note[:start_time] << " #{current_user.utc_offset}"
       note[:end_time]   = note[:end_time] << " #{current_user.utc_offset}"
-      # note[:start_time] = Time.parse(note[:start_time] << " #{current_user.utc_offset}")
-      # note[:end_time]   = Time.parse(note[:end_time] << " #{current_user.utc_offset}")
     end
     @note_group.notes.where(client_id: params[:updates].keys).each do |note|
-      note.update(params[:updates][note.id])
+      update = params[:updates][note.client_id]
+      if update[:incedent_report].present?
+        body = update[:incedent_report]
+        report = IncidentReport.new
+        report.note_id = note.id
+        report.client_id = note.client_id
+        report.caretaker_id = current_user.id
+        report.body = body
+        report.save
+      end
+      note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments))
     end
     redirect_to notes_group_index_path
   end

@@ -49,7 +49,7 @@
                   .chip.clickable.chip-preset{data: {presetType: "interaction", value: preset.text }}
                     =preset
               .col.s12
-                =f.input :interaction, as: :text, required: false, input_html: {class: "white"}
+                =f.input :interactions, as: :text, required: false, input_html: {class: "white"}
 
               .col.s12
                 -(@presets[""].to_a+@presets["comments"].to_a).each do |preset|

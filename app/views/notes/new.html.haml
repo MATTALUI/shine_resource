@@ -74,8 +74,8 @@
                       .col.s12
                         %label Incedent Report
                         =text_area_tag "updates[#{note.client.id}]incedent_report", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
-
-            =submit_tag "Submit Reports", class: "btn #{org_color} right"
+            .row
+              =submit_tag "Submit Reports", class: "btn #{org_color} offset-s9 col s3"
         .card-action
 
 :javascript
