@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  # custom routes for about page
+  get    'about',  controller: 'application', as: 'about'
   # custom routes for login info
   get    'login',  controller: 'application', as: 'login'
   post   'create_session', controller: 'application', as: 'create_session'
