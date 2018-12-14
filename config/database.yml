@@ -15,3 +15,7 @@ development:
 
 production:
   <<: *default
+
+test:
+  <<: *default
+  database: shine_resource_test
