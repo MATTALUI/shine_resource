@@ -8,13 +8,6 @@ Organization.without_auditing do
 end
 shine = Organization.first
 
-OrganizationSetting.without_auditing do
-  shine_settings = OrganizationSetting.new
-  shine_settings.organization = shine
-  shine_settings.save
-  puts "Created settings for #{shine} (#{shine_settings.id})"
-end
-
 Caretaker.destroy_all
 Caretaker.without_auditing do
   Caretaker.create([

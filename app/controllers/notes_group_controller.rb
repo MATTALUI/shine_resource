@@ -58,14 +58,19 @@ class NotesGroupController < ApplicationController
     start_date = Date.parse(params.dig(:generator, :start_date)).beginning_of_day
     end_date   = Date.parse(params.dig(:generator, :end_date)).end_of_day
     @organization = current_user.organization
-    @note_groups = NoteGroup.caretaker(current_user.id).between_dates(start_date, end_date)
+    @note_groups = NoteGroup.caretaker(current_user.id).between_dates(start_date, end_date).order(date: :asc)
 
     book = Spreadsheet::Workbook.new
 
 
     clients_sheet = book.create_worksheet :name => 'Client Report'
     clients_sheet.row(0).concat(shine_report_client_headings)
-    index = 1
+
+    time_sheet = book.create_worksheet name: "Mileage and Timesheet"
+    time_sheet.row(0).concat(shine_report_timesheet_headings)
+
+    client_index = 1
+    time_index   = 1
     @note_groups.each do |group|
       group.notes.each do |note|
         row = []
@@ -84,13 +89,33 @@ class NotesGroupController < ApplicationController
         row << note.comments
         row << false
         row << current_user.email
-        clients_sheet.row(index).concat(row)
-        index += 1
+        clients_sheet.row(client_index).concat(row)
+        client_index += 1
       end
-    end
 
-    book.write 'test.xls'
-    send_file  'test.xls'
+      group_time_data = []
+      # Date
+      group_time_data << group.date.strftime("%-m/%-d/%Y")
+      # Miles
+      group_time_data << nil
+      # SCC Hours
+      group_time_data << nil
+      # Hours Spent Driving
+      group_time_data << nil
+      # Total Time 1
+      group_time_data << nil
+      # Total Time 2
+      group_time_data << (group.end_time - group.start_time)/60/60
+
+      time_sheet.row(time_index).concat(group_time_data)
+      time_index += 1
+    end
+    @notes_group
+    time_sheet.row(time_index).concat(["Totals", 0, 0, 0, 0])
+
+    file_name = (1..10).map{[*'a'..'z',*'A'..'Z'].sample}.join('') + ".xls"
+    book.write file_name
+    send_file  file_name
 
 
     # redirect_to root_path
@@ -103,6 +128,10 @@ class NotesGroupController < ApplicationController
 
   def shine_report_client_headings
     return ["Client", "Date", "Start Time", "End Time", "Total Hours", "Service Provided", "Transportation Trips", "What/Where? (locations and activities)", "People Client Interacted With", "Support Staff Provided", "Comments/Outcome", "Incident Report Filed?", "Email Address"]
+  end
+
+  def shine_report_timesheet_headings
+    return ["Dates", "Miles", "SCC Hours", "Hours Spent Driving (Not During SCC)", "Time Spent Out For The Day (Decimal)", "Total Time SPent Out For The Day (Hour)"]
   end
 
   def generate_master_report
