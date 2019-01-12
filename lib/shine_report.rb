@@ -55,7 +55,7 @@ class ShineReport
       # Hours Spent Driving
       group_time_data << nil
       # Total Time 1
-      group_time_data << nil
+      group_time_data << (group.end_time - group.start_time)/60/60
       # Total Time 2
       group_time_data << (group.end_time - group.start_time)/60/60
 
