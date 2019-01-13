@@ -55,9 +55,9 @@ class ShineReport
       # Hours Spent Driving
       group_time_data << nil
       # Total Time 1
-      group_time_data << (group.end_time - group.start_time)/60/60
+      group_time_data << group.total_hours
       # Total Time 2
-      group_time_data << (group.end_time - group.start_time)/60/60
+      group_time_data << group.total_hours
 
       time_sheet.row(time_index).concat(group_time_data)
       time_index += 1
