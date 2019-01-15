@@ -2,7 +2,7 @@ Organization.destroy_all
 Organization.without_auditing do
   Organization.create([
     {
-      name: "Shine"
+      name: " Test Shine"
     }
     ]).each{|o| puts "Created Organization: #{o} (#{o.id})"}
 end
@@ -125,6 +125,7 @@ Memo.without_auditing do
       end_time: rand_time.hours.from_now,
       date: i.days.ago,
       total_hours: (rand_time*2),
+      miles: ([*10..20].sample),
       billed_for: false
     })
     puts "Created NoteGroup (#{ng.id})"

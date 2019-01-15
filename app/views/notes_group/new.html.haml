@@ -18,11 +18,12 @@
                 =f.input :end_time, as: :string, input_html: {class: "timepicker white"}
               .col.s12
                 =f.input :client_id, collection: @clients, label: "Clients", input_html: {multiple: true, class: "white"}
-            %hr
             .row
               .col.s12
                 =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips", input_html: {class: "white"}
-
+              .col.s12
+                =f.input :miles, input_html: {class: "white"}
+              %hr
               .col.s12
                 -(@presets[""].to_a+@presets["location"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "location", value: preset.text }}

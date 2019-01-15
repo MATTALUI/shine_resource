@@ -23,6 +23,8 @@ class ShineReport
 
     client_index = 1
     time_index   = 1
+    total_miles  = 0
+    total_hours  = 0
     @note_groups.each do |group|
       group.notes.each do |note|
         row = []
@@ -32,7 +34,7 @@ class ShineReport
         row << start_time.strftime("%l:%M%p")
         end_time = note.end_time + (@organization.utc_offset.hours)
         row << end_time.strftime("%l:%M%p")
-        row << group.total_hours
+        row << note.total_hours
         row << note.service_description
         row << note.transportation_trips
         row << note.location
@@ -49,21 +51,23 @@ class ShineReport
       # Date
       group_time_data << group.date.strftime("%-m/%-d/%Y")
       # Miles
-      group_time_data << nil
-      # SCC Hours
-      group_time_data << nil
-      # Hours Spent Driving
-      group_time_data << nil
+      total_miles += group.miles
+      group_time_data << group.miles
       # Total Time 1
+      total_hours += group.total_hours
       group_time_data << group.total_hours
-      # Total Time 2
-      group_time_data << group.total_hours
+      # Total Time 2 timestamp
+      start_time = group.start_time + (@organization.utc_offset.hours)
+      start_time = start_time.strftime("%l:%M%p")
+      end_time = group.end_time + (@organization.utc_offset.hours)
+      end_time = end_time.strftime("%l:%M%p")
+      group_time_data << "#{start_time}-#{end_time}"
 
       time_sheet.row(time_index).concat(group_time_data)
       time_index += 1
     end
     @notes_group
-    time_sheet.row(time_index).concat(["Totals", 0, 0, 0, 0])
+    time_sheet.row(time_index).concat(["Totals", total_miles, total_hours])
 
     @path = 'test.xls'
     book.write @path
@@ -82,6 +86,6 @@ class ShineReport
   end
 
   def shine_report_timesheet_headings
-    return ["Dates", "Miles", "SCC Hours", "Hours Spent Driving (Not During SCC)", "Time Spent Out For The Day (Decimal)", "Total Time SPent Out For The Day (Hour)"]
+    return ["Dates", "Miles", "Time Spent Out For The Day (Decimal)", "Total Time SPent Out For The Day (Hour)"]
   end
 end

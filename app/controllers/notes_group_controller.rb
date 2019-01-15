@@ -29,6 +29,8 @@ class NotesGroupController < ApplicationController
     @note_group.end_time = Time.parse(param_notes[:end_time]  << " #{current_user.utc_offset}")
     @note_group.total_hours = (@note_group.end_time - @note_group.start_time)/1.hour
     @note_group.billed_for = false
+    @note_group.miles = param_notes[:miles].to_i
+
     @note_group.save
 
     # create individual notes for each client
@@ -59,7 +61,7 @@ class NotesGroupController < ApplicationController
     end_date   = Date.parse(params.dig(:generator, :end_date)).end_of_day
     @organization = current_user.organization
     @note_groups = NoteGroup.caretaker(current_user.id).between_dates(start_date, end_date).order(date: :asc)
-    
+
     report = ShineReport.new(@note_groups)
     send_file  report.path
     report.destroy
@@ -67,7 +69,7 @@ class NotesGroupController < ApplicationController
 
   private
   def note_group_params
-    params.require(:note_group).permit(:start_time, :end_time, :caretaker_id, :date, :total_hours, :billed_for)
+    params.require(:note_group).permit(:start_time, :end_time, :caretaker_id, :date, :total_hours, :billed_for, :miles)
   end
 
   def generate_master_report
