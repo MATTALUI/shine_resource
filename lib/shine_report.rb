@@ -41,7 +41,7 @@ class ShineReport
         row << note.interactions
         row << note.support_provided
         row << note.comments
-        row << false
+        row << note.incident_report?
         row << group.caretaker.email
         clients_sheet.row(client_index).concat(row)
         client_index += 1

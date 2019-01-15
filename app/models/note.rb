@@ -6,12 +6,13 @@ class Note < ApplicationRecord
   # has_one    :incident_report, optional: true
 
   def total_hours
-    s = self.start_time - ()
-    e = self.end_time   - ()
-    return (Time.parse() - Time.parse())/3600
+    offset = self.client.organization.utc_offset*3600
+    s = (self.start_time + offset).strftime("%r")
+    e = (self.end_time   + offset).strftime("%r")
+    return (Time.parse(e) - Time.parse(s))/3600
   end
 
-  def incedent_report?
+  def incident_report?
     return false
   end
 end
