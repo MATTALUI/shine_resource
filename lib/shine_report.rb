@@ -28,20 +28,33 @@ class ShineReport
     @note_groups.each do |group|
       group.notes.each do |note|
         row = []
+        # Client
         row << note.client.to_s
+        # Date
         row << group.date.strftime("%-m/%-d/%Y")
+        # Start Time
         start_time = note.start_time + (@organization.utc_offset.hours)
         row << start_time.strftime("%l:%M%p")
+        # End Time
         end_time = note.end_time + (@organization.utc_offset.hours)
         row << end_time.strftime("%l:%M%p")
+        # Total Hours
         row << note.total_hours
+        # Service Desctiption
         row << note.service_description
+        # Transportation Trips
         row << note.transportation_trips
+        # What/Where?
         row << note.location
+        # People Client Interacted With
         row << note.interactions
+        # Support Staff Provided
         row << note.support_provided
+        # Comments/Outcome
         row << note.comments
+        # Incident Report Filed
         row << note.incident_report?
+        # Email
         row << group.caretaker.email
         clients_sheet.row(client_index).concat(row)
         client_index += 1

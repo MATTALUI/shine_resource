@@ -30,6 +30,9 @@
 
                     .row
                       .col.s12
+                        %label Locations and Activities
+                        =number_field_tag "updates[#{note.client.id}]transportation_trips", note.transportation_trips, class: "white"
+                      .col.s12
                         -(presets[""].to_a+presets["location"].to_a).each do |preset|
                           .chip.clickable.chip-preset{data: {presetType: "location", value: preset.text }}
                             =preset
