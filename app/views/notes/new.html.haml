@@ -16,7 +16,7 @@
                     =note.client
                   .collapsible-body.white
                     .row
-                      .col.s4
+                      .col.s3
                         %label Date
                         =text_field_tag "date", @note_group.date.strftime('%-m/%-d/%Y'), readonly:true
                       .col.s4
@@ -27,6 +27,8 @@
                         %label End time
                         -end_time = @note_group.end_time + (current_user.utc_offset * 3600)
                         =text_field_tag "updates[#{note.client.id}]end_time", end_time.strftime("%l:%M%p"), class: "timepicker"
+                      .col.s1.match-container
+                        %button.btn.grey.match-time=fa_icon('clock')
 
                     .row
                       .col.s12
@@ -99,4 +101,11 @@
 
   $('.incedent-trigger').on('click', function(event){
     $(this).closest('.client_note').find('.incedent-report').toggleClass('hide');
+  });
+
+  $(".match-time").on("click", function(event){
+    event.preventDefault();
+    if(confirm("This will update all other times with clients for this day. Are you sure?")){
+      console.log('update all times');
+    }
   });
