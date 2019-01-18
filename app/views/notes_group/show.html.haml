@@ -29,4 +29,4 @@
         .card-action
           -if current_user.master
             %p.right
-              =link_to "Audits", audits_path(entity: "NoteGroup", id: @note_group.id)
+              =link_to "Audits", audits_path(entity: "NoteGroup", id: @note_group.id, class: "text-#{org_color}")
