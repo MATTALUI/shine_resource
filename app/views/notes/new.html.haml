@@ -22,11 +22,11 @@
                       .col.s4
                         %label Start time
                         -start_time = @note_group.start_time + (current_user.utc_offset * 3600)
-                        =text_field_tag "updates[#{note.client.id}]start_time", start_time.strftime("%l:%M%p"), class: "timepicker"
+                        =text_field_tag "updates[#{note.client.id}]start_time", start_time.strftime("%l:%M%p"), class: "timepicker start_time"
                       .col.s4
                         %label End time
                         -end_time = @note_group.end_time + (current_user.utc_offset * 3600)
-                        =text_field_tag "updates[#{note.client.id}]end_time", end_time.strftime("%l:%M%p"), class: "timepicker"
+                        =text_field_tag "updates[#{note.client.id}]end_time", end_time.strftime("%l:%M%p"), class: "timepicker end_time"
                       .col.s1.match-container
                         %button.btn.grey.match-time=fa_icon('clock')
 
@@ -106,6 +106,14 @@
   $(".match-time").on("click", function(event){
     event.preventDefault();
     if(confirm("This will update all other times with clients for this day. Are you sure?")){
-      console.log('update all times');
+      let $target = $(event.target);
+      let $chosenNote = $target.closest('.client_note');
+      let start_time = $chosenNote.find('.start_time').first().val();
+      let end_time = $chosenNote.find('.end_time').first().val();
+      $(".client_note").each(function(i,ele){
+        let $note = $(ele);
+        $note.find('.start_time').first().val(start_time);
+        $note.find('.end_time').first().val(end_time);
+      });
     }
   });
