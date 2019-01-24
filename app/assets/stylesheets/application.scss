@@ -60,3 +60,9 @@ ul.dropdown-content.select-dropdown li span { color: #000; }
 .match-container{
   padding-top: 2em !important;
 }
+
+input[type]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom: 1px solid black;
+  -webkit-box-shadow: 0 1px 0 0 black;
+  box-shadow: 0 1px 0 0 black;
+}
