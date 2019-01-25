@@ -21,7 +21,10 @@
                 -@audits.each do |audit|
                   %tr
                     %td=audit.user
+                    %td=audit.remote_address
                     %td
-                    %td
+                      %ul
+                        -audit.audited_changes.each do |key,(original_value, new_value)|
+                          %li="#{key}: #{original_value} -> #{new_value}"
                     %td=local_time(audit.created_at)
         .card-action
