@@ -1,4 +1,4 @@
-DEFAULT_PHOTO = '/system/photos/profpic.jpg'
+DEFAULT_PHOTO = File.join(Rails.root, '/system/photos/profpic.jpg')
 ORG_COLORS = {
   red:           '#c62828',
   pink:          '#ad1457',
