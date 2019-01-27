@@ -28,7 +28,7 @@
                 .col.s6
                   .card.white
                     .card-image
-                      =image_tag DEFAULT_PHOTO, id: "photo-preview", class: "circle", style: "width:100%;"
+                      =image_tag DEFAULT_PHOTO.gsub(Rails.root.to_s, ''), id: "photo-preview", class: "circle", style: "width:100%;"
                     .card-content.center-text
                       %label.btn#upload-photo-label{class: org_color,for: "upload-photo-input"} Upload Photo
                       =f.file_field :photo, id: "upload-photo-input", hidden: true
