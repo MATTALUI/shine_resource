@@ -27,7 +27,7 @@ class ClientsController < ApplicationController
       new_file = File.join(dir, filename)
       FileUtils.mkdir_p(dir)
       File.open(new_file, 'wb'){|f| f.write(uploaded_picture.read)}
-      photo_url = "/system/photos/#{@client.id}/#{filename}"
+      photo_url = File.join(Rails.root, "/system/photos/#{@client.id}/#{filename}")
     else
       photo_url = DEFAULT_PHOTO
     end

@@ -64,7 +64,9 @@ class NotesGroupController < ApplicationController
 
     report = ShineReport.new(@note_groups)
     send_file  report.path
-    report.destroy
+
+    # XXX: can't destroy the path quite yet because it interrupts file sending.
+    # report.destroy # thou shalt tidy up!!
   end
 
   private

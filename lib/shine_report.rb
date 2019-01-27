@@ -82,16 +82,19 @@ class ShineReport
     @notes_group
     time_sheet.row(time_index).concat(["Totals", total_miles, total_hours])
 
-    @path = 'test.xls'
+    dir_name = File.join(Rails.root, "public", "system", "reports", filename_gen)
+    FileUtils.mkdir_p(dir_name)
+    @path = File.join(dir_name, "report.xls")
     book.write @path
   end
 
   def destroy
+    FileUtils.rm_rf(@path)
   end
 
   private
   def filename_gen
-    return (1..10).map{[*'a'..'z',*'A'..'Z'].sample}.join('') + ".xls"
+    return (1..10).map{[*'a'..'z',*'A'..'Z'].sample}.join('')
   end
 
   def shine_report_client_headings
