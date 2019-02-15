@@ -47,7 +47,7 @@
 
               .col.s12
                 -(@presets[""].to_a+@presets["interaction"].to_a).each do |preset|
-                  .chip.clickable.chip-preset{data: {presetType: "interaction", value: preset.text }}
+                  .chip.clickable.chip-preset{data: {presetType: "interactions", value: preset.text }}
                     =preset
               .col.s12
                 =f.input :interactions, as: :text, required: false, input_html: {class: "white"}
@@ -66,7 +66,7 @@
 
 :javascript
   $('.chip-preset').on('click', function(event){
-    var $chip, val, type, target, $ele, originalValue, newValue
+    var $chip, val, type, target, $ele, originalValue, newValue;
     $chip = $(this);
     val = $chip.data('value');
     type = $chip.data('presettype');
