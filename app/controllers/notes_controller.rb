@@ -31,6 +31,7 @@ class NotesController < ApplicationController
         report.save
       end
       note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments))
+      note.sub_client
     end
     redirect_to notes_group_index_path
   end

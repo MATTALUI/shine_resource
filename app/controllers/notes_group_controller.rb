@@ -51,6 +51,7 @@ class NotesGroupController < ApplicationController
       notes << template.merge({ client_id: client.id })
     end
     notes = Note.create(notes)
+    notes.each(&:sub_client)
 
     redirect_to new_notes_group_note_path(notes_group_id: @note_group)
 

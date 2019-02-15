@@ -15,4 +15,14 @@ class Note < ApplicationRecord
   def incident_report?
     return false
   end
+
+  def sub_client
+    args = ["CLIENT", self.client.to_s]
+    self.service_description = self.service_description.gsub(*args)
+    self.location = self.location.gsub(*args)
+    self.interactions = self.interactions.gsub(*args)
+    self.support_provided = self.support_provided.gsub(*args)
+    self.comments = self.comments.gsub(*args)
+    self.save
+  end
 end
