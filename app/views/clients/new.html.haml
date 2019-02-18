@@ -15,16 +15,16 @@
                       =f.text_field :first_name
                     .col.s6
                       %label Last Initial
-                      =f.text_field :last_initial
+                      =f.text_field :last_initial, maxlength: 1
+                  %label Date of Birth
+                  =f.text_field :dob, class: "datepicker"
                   %label Address
                   =f.text_field :addr1
                   =f.text_field :addr2
                   %label Town
                   =f.text_field :town
-                  %label State
-                  =f.text_field :state
-                  %label Date of Birth
-                  =f.text_field :dob, class: "datepicker"
+                  -# State
+                  =f.collection_select :state, STATES, :last, :first
                 .col.s6
                   .card.white
                     .card-image
