@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # custom routes for about page
   get    'about',  controller: 'application', as: 'about'
   # custom routes for login info
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
   resources :memos, only: [:create]
   resources :admin, only: [:index, :show]
   resources :organizations, only: [:show, :edit, :update]
+  resources :service_types
   resources :notes_group do
     resources :notes
     collection do

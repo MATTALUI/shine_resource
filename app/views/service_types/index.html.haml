@@ -1,0 +1,28 @@
+=render 'layouts/navbar'
+.row
+  .col.s10.offset-s1
+    .card.grey.lighten-3
+      .card-content
+        .card-title
+          .row
+            %h5.col.s9
+              =@service_types.length
+              Service Types
+            =link_to "Add Service Type", new_service_type_path, class: "btn #{org_color} col s3"
+        .card-body
+          .row
+            %table.striped.highlight
+              %thead
+                %tr
+                  %th Name
+                  %th Active
+                  %th Date Added
+                  %th Actions
+              %tbody
+                -@service_types.each do |service_type|
+                  %tr
+                    %td=service_type.name
+                    %td=service_type.active
+                    %td=service_type.created_at
+                    %td
+        .card-action
