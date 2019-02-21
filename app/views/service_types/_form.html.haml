@@ -2,6 +2,11 @@
   .card-content
     .card-title
       .row
-        %h5.col.s9
-    .card-body
-    .card-action
+        %h5.col.s9=title
+    =simple_form_for @service_type do |f|
+      .card-body
+        =f.input :organization_id, as: :hidden, input_html: { value: current_user.organization_id}
+        =f.input :name
+        =f.input :active
+      .card-action.row
+        =f.submit "Confirm", class: "btn #{org_color} col s3 offset-s9"
