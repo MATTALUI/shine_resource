@@ -17,7 +17,7 @@
                   %th Name
                   %th Active
                   %th Date Added
-                  %th Actions
+                  %th
               %tbody
                 -@service_types.each do |service_type|
                   %tr
@@ -25,4 +25,6 @@
                     %td=service_type.active
                     %td=service_type.created_at
                     %td
+                      =link_to "Show", service_type_path(service_type), class: "btn #{org_color}"
+                      =link_to "Edit", edit_service_type_path(service_type), class: "btn #{org_color}"
         .card-action

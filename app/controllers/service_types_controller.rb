@@ -25,13 +25,17 @@ class ServiceTypesController < ApplicationController
   end
 
   def edit
-    raise
   end
 
   def update
-    raise
+    if @service_type.update(service_type_params)
+      flash[:success] = "Service Type #{@service_type} updated."
+    else
+      flash[:error] = "Sorry. Something went wrong."
+    end
+    redirect_to service_types_path
   end
-
+ 
   def destroy
     raise
   end
