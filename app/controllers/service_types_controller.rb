@@ -7,7 +7,6 @@ class ServiceTypesController < ApplicationController
   end
 
   def show
-    raise
   end
 
   def new
@@ -35,7 +34,7 @@ class ServiceTypesController < ApplicationController
     end
     redirect_to service_types_path
   end
- 
+
   def destroy
     raise
   end
