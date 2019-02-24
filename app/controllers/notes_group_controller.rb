@@ -17,6 +17,7 @@ class NotesGroupController < ApplicationController
   def new
     @clients = Client.with_org(current_user.organization.id)
     @presets = Preset.active.caretaker(current_user.id).client_neutral.group_by(&:preset_type)
+    @service_types = ServiceType.for_org(current_user.organization_id).active
   end
 
   def create
@@ -46,6 +47,7 @@ class NotesGroupController < ApplicationController
       interactions: param_notes[:interactions],
       support_provided: param_notes[:support_provided],
       comments: param_notes[:comments],
+      service_type_id: param_notes[:service_type_id]
     }
     Client.where(id: param_notes[:client_id]).each do |client|
       notes << template.merge({ client_id: client.id })

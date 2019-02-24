@@ -23,6 +23,8 @@
                 =f.input :miles, input_html: {class: "white"}
               %hr
               .col.s12
+                =f.input :service_type_id, collection: @service_types, input_html: { class: "white" }
+              .col.s12
                 =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips", input_html: {class: "white"}
               .col.s12
                 -(@presets[""].to_a+@presets["location"].to_a).each do |preset|

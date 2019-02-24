@@ -32,7 +32,9 @@
 
                     .row
                       .col.s12
-                        %label Locations and Activities
+                        =select_tag "updates[#{note.client.id}]service_type_id", options_from_collection_for_select(@service_types, :id, :name, note.service_type_id)
+                      .col.s12
+                        %label Transportation Trips
                         =number_field_tag "updates[#{note.client.id}]transportation_trips", note.transportation_trips, class: "white"
                       .col.s12
                         -(presets[""].to_a+presets["location"].to_a).each do |preset|

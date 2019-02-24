@@ -3,6 +3,7 @@ class Note < ApplicationRecord
 
   belongs_to :note_group
   belongs_to :client
+  belongs_to :service_type
   # has_one    :incident_report, optional: true
 
   def total_hours

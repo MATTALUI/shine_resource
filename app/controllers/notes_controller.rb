@@ -12,6 +12,7 @@ class NotesController < ApplicationController
   def new
     @notes = @note_group.notes.includes(:client)
     @presets = Preset.active.caretaker(current_user.id).group_by(&:client_id)
+    @service_types = ServiceType.active.for_org(current_user.organization_id)
   end
 
   def create
@@ -30,7 +31,7 @@ class NotesController < ApplicationController
         report.body = body
         report.save
       end
-      note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments))
+      note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments, :service_type_id))
       note.sub_client
     end
     redirect_to notes_group_index_path

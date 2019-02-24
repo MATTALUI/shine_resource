@@ -16,6 +16,9 @@
               ="-"
               =local_time(@note.end_time, "%l:%M%P %Z")
           %tr
+            %th Service Type
+            %td=@note.service_type
+          %tr
             %th Transportation Trips
             %td=@note.transportation_trips
           %tr
