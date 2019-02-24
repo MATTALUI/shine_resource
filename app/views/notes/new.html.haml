@@ -76,11 +76,11 @@
                         %label Comments
                         =text_area_tag "updates[#{note.client.id}]comments", note.comments, class: "white"
                       %p.center-text
-                        %a.clickable.incedent-trigger Fill Out Incedent Report
-                    .row.incedent-report.hide
+                        %a.clickable.incident-trigger Fill Out Incident Report
+                    .row.incident-report.hide
                       .col.s12
-                        %label Incedent Report
-                        =text_area_tag "updates[#{note.client.id}]incedent_report", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
+                        %label Incident Report
+                        =text_area_tag "updates[#{note.client.id}]incident_report", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
             .row
               =submit_tag "Submit Reports", class: "btn #{org_color} offset-s9 col s3"
         .card-action
@@ -101,8 +101,8 @@
     $ele.val(newValue);
   });
 
-  $('.incedent-trigger').on('click', function(event){
-    $(this).closest('.client_note').find('.incedent-report').toggleClass('hide');
+  $('.incident-trigger').on('click', function(event){
+    $(this).closest('.client_note').find('.incident-report').toggleClass('hide');
   });
 
   $(".match-time").on("click", function(event){

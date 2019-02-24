@@ -22,8 +22,8 @@ class NotesController < ApplicationController
     end
     @note_group.notes.where(client_id: params[:updates].keys).each do |note|
       update = params[:updates][note.client_id]
-      if update[:incedent_report].present?
-        body = update[:incedent_report]
+      if update[:incident_report].present?
+        body = update[:incident_report]
         report = IncidentReport.new
         report.note_id = note.id
         report.client_id = note.client_id
