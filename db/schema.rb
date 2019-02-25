@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190224005900) do
+ActiveRecord::Schema.define(version: 20190224205213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,9 +93,29 @@ ActiveRecord::Schema.define(version: 20190224005900) do
     t.string "note_id"
     t.string "client_id"
     t.string "caretaker_id"
-    t.text "body"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
+    t.string "organization_id"
+    t.string "codes"
+    t.string "location"
+    t.string "incident_number"
+    t.time "start_time"
+    t.integer "duration"
+    t.boolean "observed_directly"
+    t.boolean "likely_to_reoccur"
+    t.boolean "hrc_review"
+    t.boolean "ap_review"
+    t.boolean "law_review"
+    t.boolean "critical"
+    t.boolean "followup_needed"
+    t.text "preface"
+    t.text "action_taken"
+    t.text "alternative_action"
+    t.text "witnesses"
+    t.text "followup"
+    t.text "comments"
     t.index ["caretaker_id"], name: "index_incident_reports_on_caretaker_id"
     t.index ["client_id"], name: "index_incident_reports_on_client_id"
     t.index ["note_id"], name: "index_incident_reports_on_note_id"
