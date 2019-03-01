@@ -80,7 +80,7 @@
                     .row.incident-report.hide
                       .col.s12
                         %label Incident Report
-                        =text_area_tag "updates[#{note.client.id}]incident_report", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
+                        =text_area_tag "updates[#{note.client.id}]incident_report[description]", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
             .row
               =submit_tag "Submit Reports", class: "btn #{org_color} offset-s9 col s3"
         .card-action
