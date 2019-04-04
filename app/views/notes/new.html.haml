@@ -10,7 +10,7 @@
           =form_tag notes_group_notes_path do |f|
             -@notes.each do |note|
               -presets = (@presets[note.client_id].to_a + @presets[nil].to_a).group_by(&:preset_type)
-              %ul.collapsible.client_note{data: {collapsible: "expandible"}}
+              %ul.collapsible.client_note{data: {collapsible: "expandible", client_id: note.client.id}}
                 %li
                   .collapsible-header.active.grey.white-text
                     =note.client
@@ -78,9 +78,56 @@
                       %p.center-text
                         %a.clickable.incident-trigger Fill Out Incident Report
                     .row.incident-report.hide
+                      =hidden_field_tag "updates[#{note.client.id}]incident_report[incident_report_filed]", false, id: "ir-#{note.client.id}"
+                      .col.s6
+                        %label Time Of Incident
+                        =text_field_tag "updates[#{note.client.id}]incident_report[start_time]", nil, class: "white timepicker"
+                      .col.s6
+                        %label Duration(minutes)
+                        =number_field_tag "updates[#{note.client.id}]incident_report[duration]", nil, class: "white"
+                      .col.s6
+                        =check_box_tag "updates[#{note.client.id}]incident_report[observed_directly]", "1", nil, id: "observed_directly-#{note.client.id}"
+                        %label{for: "observed_directly-#{note.client.id}"} Observed Directly
+                      .col.s16
+                        =check_box_tag "updates[#{note.client.id}]incident_report[likely_to_reoccur]", "1", nil, id: "likely-#{note.client.id}"
+                        %label{for: "likely-#{note.client.id}"} Likely to Reoccur
                       .col.s12
-                        %label Incident Report
-                        =text_area_tag "updates[#{note.client.id}]incident_report[description]", nil, placeholder: "Describe what happened, who was involved, circumstances, etc...", class: "white"
+                        %label Codes
+                        =text_field_tag "updates[#{note.client.id}]incident_report[codes]", nil, class: "white"
+                      .col.s12
+                        %label Location
+                        =text_field_tag "updates[#{note.client.id}]incident_report[location]", nil, class: "white"
+                      .col.s12
+                        %label Preface
+                        =text_area_tag "updates[#{note.client.id}]incident_report[preface]", nil, placeholder: "Describe what was happening prior to incident and possible causes of the incident.", class: "white"
+                      .col.s12
+                        %label Description
+                        =text_area_tag "updates[#{note.client.id}]incident_report[description]", nil, placeholder: "Detailed description of incident.", class: "white"
+                      .col.s12
+                        %label Action Taken
+                        =text_area_tag "updates[#{note.client.id}]incident_report[action_taken]", nil, placeholder: "Describe action taken or treatment given and/or Instructions from Nurse’s Observations during time of incident or during follow-up around time of incident.", class: "white"
+                      .col.s12
+                        %label Alternative Action
+                        =text_area_tag "updates[#{note.client.id}]incident_report[alternative_action]", nil, placeholder: "Is there anything that could have been done differently before, during, or after this incident to have kept incident from occurring?", class: "white"
+                      .col.s12
+                        %label Witnesses
+                        =text_area_tag "updates[#{note.client.id}]incident_report[witnesses]", nil, placeholder: "Witness/Others Involved.", class: "white"
+                      .col.s12
+                        =check_box_tag "updates[#{note.client.id}]incident_report[hrc_review]", "1", nil, id: "hrc_review-#{note.client.id}"
+                        %label{for: "hrc_review-#{note.client.id}"} Incident needs to be reviewed by HRC
+                      .col.s12
+                        =check_box_tag "updates[#{note.client.id}]incident_report[ap_review]", "1", nil, id: "ap_review-#{note.client.id}"
+                        %label{for: "ap_review-#{note.client.id}"} Incident needs to be reviewed by Adult Protection
+                      .col.s12
+                        =check_box_tag "updates[#{note.client.id}]incident_report[critical]", "1", nil, id: "critical-#{note.client.id}"
+                        %label{for: "critical-#{note.client.id}"} Critical Incident
+                      .col.s12
+                        =check_box_tag "updates[#{note.client.id}]incident_report[law_review]", "1", nil, id: "law_review-#{note.client.id}"
+                        %label{for: "law_review-#{note.client.id}"} Incident Needs to be reviewed by law enforcem2ent
+                      .col.s12
+                        =check_box_tag "updates[#{note.client.id}]incident_report[followup_needed]", "1", nil, id: "followup_needed-#{note.client.id}"
+                        %label{for: "followup_needed-#{note.client.id}"} Critical Incident
+
             .row
               =submit_tag "Submit Reports", class: "btn #{org_color} offset-s9 col s3"
         .card-action
@@ -102,6 +149,8 @@
   });
 
   $('.incident-trigger').on('click', function(event){
+    let handle = "#ir-"+ $(this).closest(".client_note").data("clientId");
+    $(handle).val(!($(handle).val() === "true"));
     $(this).closest('.client_note').find('.incident-report').toggleClass('hide');
   });
 

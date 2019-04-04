@@ -22,16 +22,21 @@ class NotesController < ApplicationController
     end
     @note_group.notes.where(client_id: params[:updates].keys).each do |note|
       update = params[:updates][note.client_id]
-      if update[:incident_report].present?
+      note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments, :service_type_id))
+      if update[:incident_report][:incident_report_filed] == "true"
         incident_report = update[:incident_report]
         report = IncidentReport.new
         report.note_id = note.id
         report.client_id = note.client_id
         report.caretaker_id = current_user.id
-        report.body = body
+        report.organization_id = note.client.organization_id
+        report.date = note.note_group.date
+        report.start_time = incident_report[:start_time]
+        [:description, :codes, :location, :duration, :observed_directly, :likely_to_reoccur, :hrc_review, :ap_review, :law_review, :critical, :followup_needed, :preface, :action_taken, :alternative_action, :witnesses, :followup, :comments].each do |key|
+          report.public_send("#{key.to_s}=", incident_report[key])
+        end
         report.save
       end
-      note.update(update.permit(:location, :start_time, :end_time, :service_description, :transportation_trips, :interactions, :support_provided, :comments, :service_type_id))
       note.sub_client
     end
     redirect_to notes_group_index_path
