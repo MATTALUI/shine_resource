@@ -4,7 +4,7 @@ class Note < ApplicationRecord
   belongs_to :note_group
   belongs_to :client
   belongs_to :service_type
-  # has_one    :incident_report, optional: true
+  has_one    :incident_report, required: false
 
   def total_hours
     offset = self.client.organization.utc_offset*3600
@@ -14,7 +14,7 @@ class Note < ApplicationRecord
   end
 
   def incident_report?
-    return false
+    return self.incident_report.present?
   end
 
   def sub_client

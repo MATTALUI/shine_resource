@@ -7,6 +7,7 @@ class NotesController < ApplicationController
   def show
     @note = Note.find(params[:id])
     @client = @note.client
+    @incident_report = @note.incident_report
   end
 
   def new

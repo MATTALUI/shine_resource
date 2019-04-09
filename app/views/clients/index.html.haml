@@ -18,7 +18,7 @@
           %ul.collection
             -@clients.each do |client|
               %li.collection-item.avatar
-                =image_tag client.photo_url, class: "circle"
+                =image_tag client.photo_url.gsub(Rails.root.to_s, ""), class: "circle"
                 %span.title=client
                 =link_to "View", client_path(client), class: "secondary-content btn waves-light waces-effect #{org_color}"
         .card-action

@@ -1,5 +1,5 @@
 =render 'layouts/navbar'
--if current_user.master
+-if current_user.master && false
   .row
     .col.s10.offset-s1
       .card.grey.lighten-3
@@ -52,9 +52,11 @@
             %h5.center-text No Reports available
           %ul.collection
             -@note_groups.each do |ng|
-              =link_to ng.date.strftime('%A %B %e, %Y'), notes_group_path(ng), class: "collection-item black-text"
+              =link_to notes_group_path(ng), class: "collection-item black-text" do
+                =ng.date.strftime('%A %B %e, %Y')
+                =fa_icon('exclamation-circle') if @incident_report[ng.id]
         .card-action
--if current_user.master
+-if current_user.master && false
   :javascript
     var unbilled_reports_chart = document.getElementById("unbilled_reports_chart").getContext("2d");
     var data = {

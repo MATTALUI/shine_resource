@@ -15,6 +15,7 @@
 //= require_tree .
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require materialize
 //= require local-time
 //= require Chart.min

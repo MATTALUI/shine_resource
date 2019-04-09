@@ -24,6 +24,11 @@ class NoteGroup < ApplicationRecord
     return "#{self.start_time.strftime(f)}-#{self.end_time.strftime(f)}"
   end
 
+  def incident_report?
+    note_ids = Note.where(note_group_id: self.id).pluck(:id)
+    return IncidentReport.exists?(note_id: note_ids)
+  end
+
   def self.most_recent
     order(date: :desc).limit(1).first
   end

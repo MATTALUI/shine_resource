@@ -1,4 +1,75 @@
 =render 'layouts/navbar'
+-if @incident_report.present?
+  .row
+    .col.s10.offset-s1
+      .card.grey.lighten-3
+        .card-content
+          .card-title
+            .row
+              %h5
+                Incident Report
+                %span{style: "font-size: .7em;"}
+                  (
+                  =link_to "Show", "", id: "toggle-ir"
+                  )
+          .card-body#incident-report-body
+            %table.striped
+              %tr
+                %th Incident Number
+                %td=@incident_report.incident_number
+              %tr
+                %th Preface
+                %td=@incident_report.preface
+              %tr
+                %th Description
+                %td=@incident_report.description
+              %tr
+                %th Action Taken
+                %td=@incident_report.action_taken
+              %tr
+                %th Alternative Action
+                %td=@incident_report.alternative_action
+              %tr
+                %th Codes
+                %td=@incident_report.codes
+              %tr
+                %th Witnesses
+                %td=@incident_report.witnesses
+              %tr
+                %th Location
+                %td=@incident_report.location
+              %tr
+                %th Observed Directly
+                %td=@incident_report.observed_directly
+              %tr
+                %th Likely to Reoccure
+                %td=@incident_report.likely_to_reoccur
+              %tr
+                %th HRC Review
+                %td=@incident_report.hrc_review
+              %tr
+                %th AP Review
+                %td=@incident_report.ap_review
+              %tr
+                %th Law Review
+                %td=@incident_report.law_review
+              %tr
+                %th Critical Incident
+                %td=@incident_report.critical
+              %tr
+                %th Followup Needed
+                %td=@incident_report.followup_needed
+              %tr
+                %th Followup
+                %td=@incident_report.followup
+              %tr
+                %th Comments
+                %td=@incident_report.comments
+          .card-action
+            -if current_user.master
+              %p.right
+                =link_to "Manage", ""
+
 .row
   .col.s10.offset-s1
     .card.grey.lighten-3
@@ -8,35 +79,47 @@
             %h5
               = "Report for #{@client} for #{@note_group.date.strftime('%A %B %e, %Y')}"
         .card-body
-        %table.striped
-          %tr
-            %th Time
-            %td
-              =local_time(@note.start_time, "%l:%M%P")
-              ="-"
-              =local_time(@note.end_time, "%l:%M%P %Z")
-          %tr
-            %th Service Type
-            %td=@note.service_type
-          %tr
-            %th Transportation Trips
-            %td=@note.transportation_trips
-          %tr
-            %th Locations/Activities
-            %td=@note.location
-          %tr
-            %th Service Description
-            %td=@note.service_description
-          %tr
-            %th Client Interactions
-            %td=@note.interactions
-          %tr
-            %th Support Provided
-            %td=@note.support_provided
-          %tr
-            %th Comments
-            %td=@note.comments
+          %table.striped
+            %tr
+              %th Time
+              %td
+                =local_time(@note.start_time, "%l:%M%P")
+                ="-"
+                =local_time(@note.end_time, "%l:%M%P %Z")
+            %tr
+              %th Service Type
+              %td=@note.service_type
+            %tr
+              %th Transportation Trips
+              %td=@note.transportation_trips
+            %tr
+              %th Locations/Activities
+              %td=@note.location
+            %tr
+              %th Service Description
+              %td=@note.service_description
+            %tr
+              %th Client Interactions
+              %td=@note.interactions
+            %tr
+              %th Support Provided
+              %td=@note.support_provided
+            %tr
+              %th Comments
+              %td=@note.comments
         .card-action
           -if current_user.master
             %p.right
               =link_to "Audits", audits_path(entity: "Note", id: @note.id)
+
+:javascript
+  $("#incident-report-body").hide();
+  $(document).ready(function(event){
+    $("#toggle-ir").on("click", function(event){
+      event.preventDefault();
+      let values = {Show: "Hide", Hide: "Show"}
+      $(this).html(values[$(this).html()]);
+      $("#incident-report-body").toggle('blind');
+      console.log("toggle me!")
+    });
+  });

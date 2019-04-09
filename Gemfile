@@ -36,6 +36,7 @@ gem 'haml'
 gem 'haml-rails'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'materialize-sass'
 gem 'font-awesome-sass', '~> 5.3.1'
 

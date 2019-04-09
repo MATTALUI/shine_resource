@@ -3,7 +3,11 @@ class NotesGroupController < ApplicationController
   def index
     if current_user.master
       @note_groups = NoteGroup.organization(current_organization.id).order(date: :desc)
-      generate_master_report
+      @incident_report = Note.where(note_group_id: @note_groups.map(&:id)).includes(:incident_report).inject({}) do |acc, note|
+        acc[note.note_group_id] = true if note.incident_report.present?
+        acc
+      end
+      generate_master_report if current_user.master
     else
       @note_groups = current_user.note_groups.order(date: :desc)
     end
@@ -11,7 +15,7 @@ class NotesGroupController < ApplicationController
 
   def show
     @note_group = NoteGroup.find(params[:id])
-    @notes = @note_group.notes.includes(:client)
+    @notes = @note_group.notes.includes(:client, :incident_report)
   end
 
   def new
