@@ -29,10 +29,17 @@ $(document).ready(function(){
     $('.timepicker').pickatime({
       autoclose: true
     });
+    $('.timepicker').on('mousedown', function(event){
+      event.preventDefault();
+    });
+
     $('.datepicker').pickadate({
       format: 'mm/dd/yyyy',
       selectMonths: true,
       selectYears: 150,
       autoclose: true
+    });
+    $('.datepicker').on('mousedown', function(event){
+      event.preventDefault();
     });
 });
