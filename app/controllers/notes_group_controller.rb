@@ -30,8 +30,8 @@ class NotesGroupController < ApplicationController
     @note_group = NoteGroup.new
     @note_group.caretaker_id = param_notes[:caretaker_id]
     @note_group.date = Date.parse(param_notes[:date])
-    @note_group.start_time = Time.parse(param_notes[:start_time] << " #{current_user.utc_offset}")
-    @note_group.end_time = Time.parse(param_notes[:end_time]  << " #{current_user.utc_offset}")
+    @note_group.start_time = Time.parse(param_notes[:start_time] + " #{current_user.timezone_short_name}")
+    @note_group.end_time = Time.parse(param_notes[:end_time]  + " #{current_user.timezone_short_name}")
     @note_group.total_hours = (@note_group.end_time - @note_group.start_time)/1.hour
     @note_group.billed_for = false
     @note_group.miles = param_notes[:miles].to_i

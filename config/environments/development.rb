@@ -62,4 +62,5 @@ Rails.application.configure do
   #   :authentication       => "plain",
   #   :enable_starttls_auto => true
   # }
+  BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
 end
