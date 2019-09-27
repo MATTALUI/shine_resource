@@ -1,5 +1,18 @@
 =render 'layouts/navbar'
 .row
+  -if @ng_template.keys.length > 0
+    .col.s10.offset-s1
+      .card.yellow.lighten-3
+        .card-content
+          .card-body
+            %p
+              %b Howdy!
+              We noticed that you started to create a template and did not submit it,
+              so we went ahead and applied your previous answers to the template in
+              order to give you a head start! If you would rather start from scratch
+              then you can
+              =link_to "click here", new_notes_group_path(clear_ng_template: true)
+              !
   .col.s10.offset-s1
     .card.grey.lighten-3
       .card-content
@@ -11,55 +24,67 @@
             =f.input :caretaker_id, as: :hidden, input_html: {value: current_user.id}
             .row
               .col.s4
-                =f.input :date, as: :string, input_html: {class: "datepicker white"}
+                =f.input :date, as: :string,
+                input_html: { class: "datepicker white",value: @ng_template[:date] }
               .col.s4
-                =f.input :start_time, as: :string, input_html: {class: "timepicker white"}
+                =f.input :start_time, as: :string,
+                input_html: {class: "timepicker white", value: @ng_template[:start_time] }
               .col.s4
-                =f.input :end_time, as: :string, input_html: {class: "timepicker white"}
+                =f.input :end_time, as: :string,
+                input_html: {class: "timepicker white", value: @ng_template[:end_time] }
               .col.s12
-                =f.input :client_id, collection: @clients, label: "Clients", input_html: {multiple: true, class: "white"}
+                =f.input :client_id, collection: @clients, selected: @ng_template[:client_id], label: "Clients",
+                input_html: {multiple: true, class: "white",  }
             .row
               .col.s12
-                =f.input :miles, input_html: {class: "white"}
+                =f.input :miles,
+                input_html: {class: "white", value: @ng_template[:miles]}
               %hr
               .col.s12
-                =f.input :service_type_id, collection: @service_types, input_html: { class: "white" }
+                =f.input :service_type_id, collection: @service_types, selected: @ng_template[:service_type_id],
+                input_html: { class: "white" }
               .col.s12
-                =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips", input_html: {class: "white"}
+                =f.input :transportation_trips, as: :integer, required: false, label: "Number of Transportation Trips",
+                input_html: {class: "white", value: @ng_template[:transportation_trips]}
               .col.s12
                 -(@presets[""].to_a+@presets["location"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "location", value: preset.text }}
                     =preset
               .col.s12
-                =f.input :location, as: :text, required: false, label: "Locations and Activities", input_html: {class: "white"}
+                =f.input :location, as: :text, required: false, label: "Locations and Activities",
+                input_html: {class: "white", value: @ng_template[:location]}
 
               .col.s12
                 -(@presets[""].to_a+@presets["support_provided"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "support_provided", value: preset.text }}
                     =preset
               .col.s12
-                =f.input :support_provided, as: :text, required: false, input_html: {class: "white"}
+                =f.input :support_provided, as: :text, required: false,
+                input_html: {class: "white", value: @ng_template[:support_provided]}
 
               .col.s12
                 -(@presets[""].to_a+@presets["service_description"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "service_description", value: preset.text }}
                     =preset
-              .col.s12
-                =f.input :service_description, as: :text, required: false, input_html: {class: "white"}
+              -# .col.s12
+                =f.input :service_description, as: :text, required: false,
+                input_html: {class: "white", value: @ng_template[:service_description]}
 
               .col.s12
                 -(@presets[""].to_a+@presets["interaction"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "interactions", value: preset.text }}
                     =preset
               .col.s12
-                =f.input :interactions, as: :text, required: false, input_html: {class: "white"}
+                =f.input :interactions, as: :text, required: false,
+                input_html: {class: "white", value: @ng_template[:interactions]}
 
               .col.s12
                 -(@presets[""].to_a+@presets["comments"].to_a).each do |preset|
                   .chip.clickable.chip-preset{data: {presetType: "comments", value: preset.text }}
                     =preset
               .col.s12
-                =f.input :comments, as: :text, required: false, input_html: {class: "white"}
+                =f.input :comments, as: :text, required: false,
+                input_html: {class: "white", value: @ng_template[:comments]}
 
               .col.s12
                 %button.btn.right#create_button{class: org_color, disabled: true} Create Report
@@ -79,7 +104,7 @@
       val = val + "."
     }
     newValue = originalValue + " " + val
-    $ele.val(newValue);
+    $ele.val(newValue).trigger("change");
   });
 
   $("form.note_group").on("change", function(event){
@@ -95,4 +120,19 @@
     }else{
       $("#create_button").attr('disabled', true);
     }
+  });
+
+  $("input, select, textarea").change(function(event){
+    var $input = $(this);
+    return $.ajax("/notes_group/template_cache", {
+      method: "POST",
+      data: {
+        id: $input.attr('id').replace("note_group_", ""),
+        value: $input.val()
+      }
+    })
+    .then(function(response){
+      // TODO: Do something with the response?
+      return response;
+    });
   });

@@ -19,12 +19,18 @@ class NotesGroupController < ApplicationController
   end
 
   def new
+    if params[:clear_ng_template].present?
+      delete_notes_group_template
+      return redirect_to new_notes_group_path # This is a trick to make sure the param doesn't stay.
+    end
+    load_notes_group_template
     @clients = Client.with_org(current_user.organization.id)
     @presets = Preset.active.caretaker(current_user.id).client_neutral.group_by(&:preset_type)
     @service_types = ServiceType.for_org(current_user.organization_id).active
   end
 
   def create
+    delete_notes_group_template
     param_notes = params[:note_group]
 
     @note_group = NoteGroup.new
@@ -76,6 +82,18 @@ class NotesGroupController < ApplicationController
     # report.destroy # thou shalt tidy up!!
   end
 
+  def template_cache
+    load_notes_group_template
+    new_values = {
+      params[:id] => params[:value]
+    }
+    @ng_template.merge!(new_values)
+    save_notes_group_template
+    respond_to do |format|
+      format.json { render :json => @ng_template }
+    end
+  end
+
   private
   def note_group_params
     params.require(:note_group).permit(:start_time, :end_time, :caretaker_id, :date, :total_hours, :billed_for, :miles)
@@ -87,4 +105,20 @@ class NotesGroupController < ApplicationController
     @unbilled_count   = @unbilled_reports.count
     @unbilled_hours   = @unbilled_reports.sum(&:total_hours)
   end
+
+  def load_notes_group_template
+    session[:ng_template] = {}.to_json if session[:ng_template].blank?
+    @ng_template = JSON.decode(session[:ng_template]).with_indifferent_access
+  # rescue
+  #   @ng_template = {}
+  end
+
+  def save_notes_group_template
+    session[:ng_template] = @ng_template.to_json
+  end
+
+  def delete_notes_group_template
+    session.delete(:ng_template)
+  end
+
 end

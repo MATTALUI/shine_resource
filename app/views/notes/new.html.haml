@@ -52,7 +52,7 @@
                         %label Support provided
                         =text_area_tag "updates[#{note.client.id}]support_provided", note.support_provided, class: "white"
 
-                      .col.s12
+                      -# .col.s12
                         -(presets[""].to_a+presets["service_description"].to_a).each do |preset|
                           .chip.clickable.chip-preset{data: {presetType: "service_description", value: preset.text }}
                             =preset

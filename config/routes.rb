@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :notes
     collection do
       get "shine_report"
+      post "template_cache"
     end
   end
   resources :caretakers do
