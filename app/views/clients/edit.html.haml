@@ -1,2 +1,62 @@
-<h1>Clients#edit</h1>
-<p>Find me in app/views/clients/edit.html.erb</p>
+=render 'layouts/navbar'
+.container
+  .row
+    .col.s12
+      .card.grey.lighten-3
+        .card-content
+          %span.card-title.center-text= "Edit #{@client}"
+          =form_for @client, action: edit_client_path do |f|
+            .card-body
+              .row
+                .col.s6
+                  .row
+                    .col.s6
+                      %label First Name
+                      =f.text_field :first_name
+                    .col.s6
+                      %label Last Initial
+                      =f.text_field :last_initial, maxlength: 1
+                  %label Date of Birth
+                  =f.text_field :dob, class: "datepicker"
+                  %label Address
+                  =f.text_field :addr1
+                  =f.text_field :addr2
+                  %label Town
+                  =f.text_field :town
+                  %label State
+                  =f.collection_select :state, STATES, :last, :first
+                .col.s6
+                  .card.white
+                    .card-image
+                      =image_tag DEFAULT_PHOTO.gsub(Rails.root.to_s, ''), id: "photo-preview", class: "circle", style: "width:100%;"
+                    .card-content.center-text
+                      %label.btn#upload-photo-label{class: org_color,for: "upload-photo-input"} Upload Photo
+                      =f.file_field :photo, id: "upload-photo-input", hidden: true
+              %label Description
+              =f.text_area :description, class: "white"
+              %label Services Needed
+              =f.text_area :services_needed, class: "white"
+              %label Ideal Provider
+              =f.text_area :ideal_provider, class: "white"
+              %label Important to Me
+              =f.text_area :important_to_me, class: "white"
+              %label Important for Me
+              =f.text_area :important_for_me, class: "white"
+              %label Additional Info
+              =f.text_area :additional_info, class: "white"
+              %label Services Provided
+              =f.text_area :shine_services, class: "white"
+            .card-action
+              =f.submit "Save", class: "btn #{org_color} right"
+
+:javascript
+  $('#upload-photo-input').on('change', function(event){
+    var file = $('#upload-photo-input')[0].files[0]
+    var name = file.name;
+    var reader = new FileReader;
+    reader.onload = function(event){
+      $('#photo-preview').attr('src', event.target.result);
+    }
+    reader.readAsDataURL(file);
+    $('#upload-photo-label').html(name);
+  });
