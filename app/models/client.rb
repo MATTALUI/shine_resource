@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
   audited
+  include SoftDeletable
 
   attr_encrypted :addr1,            key: ENV["encryption_key"]
   attr_encrypted :addr2,            key: ENV["encryption_key"]
