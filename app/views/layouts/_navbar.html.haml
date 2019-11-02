@@ -27,6 +27,10 @@
     .nav-wrapper
       %ul.right.hide-on-med-and-down
         %li=link_to "About", about_path
+- flash.each do |message_type, message|
+  - type = message_type.gsub('alert', 'red').gsub('notice', 'orange').gsub('success', 'green')
+  :javascript
+    Materialize.toast("#{message}", 4000, "#{type}");
 
 
 %ul.side-nav#sideNav

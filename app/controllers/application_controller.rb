@@ -36,6 +36,12 @@ class ApplicationController < ActionController::Base
     @current_organization ||= current_user.organization rescue nil
   end
 
+  def check_admin
+    return if current_user&.master?
+    flash[:alert] = 'Permission Denied'
+    redirect_back(fallback_location: root_path)
+  end
+
   private
     def authenticate_user
       # session[:current_user] = ""

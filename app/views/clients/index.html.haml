@@ -20,5 +20,9 @@
               %li.collection-item.avatar
                 =image_tag client.photo_url.gsub(Rails.root.to_s, ""), class: "circle"
                 %span.title=client
-                =link_to "View", client_path(client), class: "secondary-content btn waves-light waces-effect #{org_color}"
+                .secondary-content
+                  =link_to "View", client_path(client), class: "btn waves-light waves-effect #{org_color}"
+                  - if current_user.master?
+                    =link_to "Edit", edit_client_path(client), class: "btn waves-light waves-effect #{org_color('darken-4')}"
+                    =link_to "Delete", client_path(client, method: :delete), data: {confirm: 'Are you sure?'}, method: :delete, class: "btn waves-effect red lighten-1}"
         .card-action
