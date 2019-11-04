@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022015741) do
+ActiveRecord::Schema.define(version: 20191102202311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,21 +135,19 @@ ActiveRecord::Schema.define(version: 20191022015741) do
 
   create_table "note_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "caretaker_id"
-    t.time "start_time"
-    t.time "end_time"
     t.date "date"
     t.integer "total_hours"
     t.boolean "billed_for"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "miles", default: 0
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["caretaker_id"], name: "index_note_groups_on_caretaker_id"
   end
 
   create_table "notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "client_id"
-    t.time "start_time"
-    t.time "end_time"
     t.text "service_description"
     t.integer "transportation_trips"
     t.string "location"
@@ -160,6 +158,8 @@ ActiveRecord::Schema.define(version: 20191022015741) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "service_type_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["client_id"], name: "index_notes_on_client_id"
     t.index ["note_group_id"], name: "index_notes_on_note_group_id"
   end
